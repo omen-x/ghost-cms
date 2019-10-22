@@ -1,0 +1,7 @@
+{
+  "verbose": false,
+  "ignore": ["output/*", "public/*", "packages/dashboard", "logs"],
+  "watch": ["src"],
+  "exec": "npm start",
+  "ext": "ts"
+}
