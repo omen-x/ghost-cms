@@ -3,12 +3,12 @@
   "version": "0.0.0-dev",
   "main": "index.js",
   "scripts": {
-    "start": "node --inspect -r ts-node/register ./src/index.ts",
+    "start": "node -r ts-node/register ./src/index.ts",
     "dev-client": "webpack-dev-server --mode=development --progress --inline",
-    "dev": "nodemon --inspect",
+    "dev": "nodemon",
     "prod": "webpack --mode=production",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx src",
-    "tsc": "tsc"
+    "build": "tsc"
   },
   "author": "Denis Volok (denis.omen.x@gmail.com)",
   "dependencies": {

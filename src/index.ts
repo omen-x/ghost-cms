@@ -1,4 +1,4 @@
-import express, { Request, Response } from 'express';
+import express from 'express';
 import mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
@@ -9,8 +9,8 @@ import passport from 'passport';
 import dotenv from 'dotenv';
 import { errorHandler } from './server/utils/errors';
 import { logger } from './server/utils/logger';
-import { User } from './server/models/User';
 import './server/middleware/auth';
+import router from './server/router';
 
 
 dotenv.config();
@@ -33,6 +33,7 @@ mongoose.connection.on('open', () => {
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(express.static('build/public'));
 
 // Session
 const RedisStore = connectRedis(session);
@@ -57,31 +58,9 @@ redisClient.on('error', err => {
 app.use(passport.initialize());
 app.use(passport.session());
 
-// Express middleware
-app.get('/', (req: Request, res: Response): Response => res.send('home page'));
-
-app.post('/signup', (req: Request, res, next) => {
-  const { email, name, password } = req.body;
-
-  const user = new User({ email, name, password });
-  user.save(err => {
-    if (err) return next(err);
-
-    logger.info('A new user created');
-    res.send('User saved');
-  });
-});
-//
-
-app.get('/dashboard', (req, res) => res.send('dashboard page'));
-
-app.post('/signin', passport.authenticate('local', {
-  failureRedirect: '/',
-  successRedirect: '/dashboard',
-}));
-
+// Custom middleware
+app.use('/', router);
 app.use(errorHandler);
-
 
 //
 app.listen(8080, () => logger.info(`Server is running on port ${port}`));
