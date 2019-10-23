@@ -24,5 +24,6 @@ module.exports = {
     'import/prefer-default-export': 0,
     'lines-between-class-members': ['error', 'always',  {exceptAfterSingleLine: true}],
     '@typescript-eslint/no-var-requires': 0,
+    'consistent-return': 1
   }
 };
