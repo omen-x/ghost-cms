@@ -4,9 +4,8 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ImageMin = require('imagemin-webpack-plugin').default;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const ImageminMozjpeg = require('imagemin-mozjpeg');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-
+const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const webpackConfig = (env, argv) => {
   const isDev = argv && argv.mode === 'development';
@@ -20,8 +19,12 @@ const webpackConfig = (env, argv) => {
       filename: isDev ? '[name].js' : '[name].[hash].js',
       chunkFilename: isDev ? '[name].js' : '[name].[hash].js',
     },
-    devtool: 'source-map',
-    optimization: {},
+    devtool: isDev ? 'eval' : 'nosources-source-map',
+    optimization: {
+      splitChunks: {
+        chunks: 'all',
+      },
+    },
     resolve: {
       extensions: ['.js', '.tsx'],
       alias: {
@@ -49,13 +52,13 @@ const webpackConfig = (env, argv) => {
               loader: 'file-loader',
               options: {
                 outputPath: 'assets',
-                name: isDev ? '[name].[ext]' : '[name].[hash].[ext]',
+                name: '[name].[ext]',
               },
             },
           ],
         },
         {
-          test: /.(sa|sc|c)ss$/,
+          test: /.css$/,
           use: [
             isDev ? 'style-loader' : MiniCssExtractPlugin.loader,
             {
@@ -64,10 +67,6 @@ const webpackConfig = (env, argv) => {
             },
             {
               loader: 'postcss-loader',
-            },
-            {
-              loader: 'sass-loader',
-              options: { sourceMap: true },
             },
           ],
         },
@@ -96,21 +95,35 @@ const webpackConfig = (env, argv) => {
       }),
       new ImageMin({
         disable: isDev,
-        pngquant: { quality: '50-70' },
-        plugins: [
-          ImageminMozjpeg({
-            quality: 80,
-            progressive: true,
-          }),
-        ],
+        cache: true,
+        imageminOptions: {
+          plugins: [
+            ['gifsicle', { interlaced: true }],
+            ['jpegtran', { progressive: true }],
+            ['optipng', { optimizationLevel: 5 }],
+            [
+              'svgo',
+              {
+                plugins: [
+                  {
+                    removeViewBox: false,
+                  },
+                ],
+              },
+            ],
+          ],
+        },
+      }),
+      new BundleAnalyzer({
+        analyzerMode: isDev ? 'static' : 'disabled',
+        openAnalyzer: false,
       }),
     ],
     devServer: {
       contentBase: path.resolve(__dirname, 'build/public'),
       port: 3000,
-      // host: '0.0.0.0',
-      hot: false,
-      // writeToDisk: true,
+      hot: true,
+      writeToDisk: false,
       compress: true,
       historyApiFallback: true,
       proxy: {},
