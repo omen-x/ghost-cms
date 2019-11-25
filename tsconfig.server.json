@@ -9,6 +9,10 @@
     "noImplicitAny": true
   },
   "include": [
-    "src/server"
+    "./src/server/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "**/*.spec.ts"
   ]
 }

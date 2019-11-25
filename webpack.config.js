@@ -76,10 +76,11 @@ const webpackConfig = (env, argv) => {
       new HtmlWebpackPlugin({
         template: 'src/client/public/index.html',
         excludeChunks: ['login'],
+        filename: 'app.html',
       }),
       new HtmlWebpackPlugin({
         template: 'src/client/public/index.html',
-        chunks: ['login', 'vendors~app~login'],
+        chunks: ['login', 'vendors~app~login', 'vendors~login'],
         filename: 'login.html',
       }),
       new ScriptExtHtmlWebpackPlugin({
@@ -127,7 +128,10 @@ const webpackConfig = (env, argv) => {
       writeToDisk: false,
       compress: true,
       historyApiFallback: true,
-      proxy: {},
+      proxy: {
+        context: ['/api', '/login'],
+        target: 'http://localhost:8080',
+      },
       stats: {
         assetsSort: 'size',
         assets: false,

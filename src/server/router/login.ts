@@ -1,6 +1,7 @@
 import express from 'express';
 import passport from 'passport';
 import { logger } from '../utils/logger';
+import { CommonError } from '../utils/errors';
 
 
 const router = express.Router();
@@ -12,14 +13,14 @@ router.get('/', (req, res) => {
 router.post('/', (req, res, next) => {
   passport.authenticate('local', (err, user) => {
     if (err) return next(err);
-    // TODO:
-    if (!user) return res.redirect('/');
+    if (!user) return next(new CommonError({ clientMessage: 'User not found' }));
 
     req.login(user, errLogin => {
       if (errLogin) return next(errLogin);
 
       logger.debug('Success user auth');
-      res.sendStatus(200);
+      // TODO:
+      res.redirect('/');
     });
   })(req, res, next);
 });

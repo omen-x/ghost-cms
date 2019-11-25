@@ -10,11 +10,12 @@
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx src/",
     "build-client": "npm run lint-client && tsc -p tsconfig.client.json && webpack --mode=production",
     "build-server": "rm -rf build/server/**/* && mkdir -p build/server && npm run lint-server && tsc -p tsconfig.server.json",
-    "build" : "npm run build-server && npm run build-client",
+    "build": "npm run build-server && npm run build-client",
     "start": "node build/server/index.js"
   },
   "author": "Denis Volok (denis.omen.x@gmail.com)",
   "dependencies": {
+    "@blueprintjs/core": "^3.21.0",
     "axios": "^0.19.0",
     "bcrypt": "^3.0.6",
     "body-parser": "^1.19.0",
@@ -30,11 +31,13 @@
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "redis": "^2.8.0",
+    "styled-components": "^4.4.1",
     "winston": "^3.2.1"
   },
   "devDependencies": {
     "@babel/cli": "^7.5.0",
     "@babel/core": "^7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
     "@babel/preset-env": "^7.3.1",
     "@babel/preset-react": "^7.7.4",
     "@babel/preset-typescript": "^7.7.4",
@@ -52,6 +55,7 @@
     "@types/react": "^16.8.23",
     "@types/react-dom": "^16.8.5",
     "@types/redis": "^2.8.14",
+    "@types/styled-components": "^4.4.0",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "babel-eslint": "^10.0.2",

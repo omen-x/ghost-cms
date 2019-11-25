@@ -12,16 +12,17 @@ const protectRoute = (req: Request, res: Response, next: Function) => {
   else res.redirect('/login');
 };
 
-
 router.use('/api', protectRoute, apiRouter);
 router.use('/login', loginRouter);
 router.use('/signup', signupRouter);
-
 
 router.post('/signout', (req, res) => {
   req.logout();
   res.send(200);
 });
 
+router.get('*', (req, res) => {
+  res.redirect('/login');
+});
 
 export default router;

@@ -8,8 +8,8 @@ export class CommonError extends Error {
   private readonly $clientMessage: string;
   private readonly $status: number;
 
-  public constructor(params: { message: string; status: number; clientMessage: string }) {
-    const { message, status = 500, clientMessage = '' } = params;
+  public constructor(params: { message?: string; status?: number; clientMessage?: string }) {
+    const { message = '', status = 500, clientMessage = '' } = params;
     super(message);
 
     this.$clientMessage = clientMessage;
