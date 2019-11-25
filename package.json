@@ -1,14 +1,17 @@
 {
-  "name": "project-tracker",
+  "name": "ghost-cms",
   "version": "0.0.0-dev",
-  "main": "index.js",
+  "main": "src/server/index.ts",
   "scripts": {
-    "start": "node -r ts-node/register ./src/index.ts",
     "dev-client": "webpack-dev-server --mode=development --progress --inline",
-    "dev": "nodemon",
-    "prod": "webpack --mode=production",
-    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx src",
-    "build": "tsc"
+    "dev-server": "nodemon",
+    "lint-client": "eslint --fix --ext .js,.jsx,.ts,.tsx src/client",
+    "lint-server": "eslint --fix --ext .js,.ts src/server",
+    "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx src/",
+    "build-client": "npm run lint-client && tsc -p tsconfig.client.json && webpack --mode=production",
+    "build-server": "rm -rf build/server/**/* && mkdir -p build/server && npm run lint-server && tsc -p tsconfig.server.json",
+    "build" : "npm run build-server && npm run build-client",
+    "start": "node build/server/index.js"
   },
   "author": "Denis Volok (denis.omen.x@gmail.com)",
   "dependencies": {
@@ -33,6 +36,8 @@
     "@babel/cli": "^7.5.0",
     "@babel/core": "^7.2.2",
     "@babel/preset-env": "^7.3.1",
+    "@babel/preset-react": "^7.7.4",
+    "@babel/preset-typescript": "^7.7.4",
     "@commitlint/cli": "^8.1.0",
     "@commitlint/config-conventional": "^8.1.0",
     "@types/bcrypt": "^3.0.0",

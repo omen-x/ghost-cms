@@ -23,7 +23,8 @@ module.exports = {
   rules: {
     'import/prefer-default-export': 0,
     'lines-between-class-members': ['error', 'always',  {exceptAfterSingleLine: true}],
+    'consistent-return': 1,
+    // Typescript
     '@typescript-eslint/no-var-requires': 0,
-    'consistent-return': 1
   }
 };

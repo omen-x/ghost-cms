@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "strict": true,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "jsx": "react",
+    "noImplicitAny": true
+  },
+  "include": [
+    "src/client"
+  ]
+}

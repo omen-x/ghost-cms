@@ -7,21 +7,21 @@ import connectRedis from 'connect-redis';
 import session from 'express-session';
 import passport from 'passport';
 import dotenv from 'dotenv';
-import { errorHandler } from './server/utils/errors';
-import { logger } from './server/utils/logger';
-import './server/middleware/auth';
-import router from './server/router';
+import { errorHandler } from './utils/errors';
+import { logger } from './utils/logger';
+import './middleware/auth';
+import router from './router';
 
 
 dotenv.config();
-const { DB_URI, port = 8080 } = process.env;
+const { DB_URI = '', port = 8080 } = process.env;
 
 const app = express();
 
 
 // Init DB
 mongoose.connect(DB_URI, { useNewUrlParser: true });
-mongoose.connection.on('error', (err): void => {
+mongoose.connection.on('error', err => {
   logger.error(err);
   process.exit(1);
 });
@@ -29,11 +29,13 @@ mongoose.connection.on('open', () => {
   logger.info('MongoDB connected');
 });
 
-// Common middleware
+// General middleware
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static('build/public'));
+app.use(express.static('build/public', {
+  extensions: ['html, htm'],
+}));
 
 // Session
 const RedisStore = connectRedis(session);

@@ -12,7 +12,8 @@ const webpackConfig = (env, argv) => {
 
   return {
     entry: {
-      app: 'src/client/index.tsx',
+      app: 'src/client/pages/app/index.tsx',
+      login: 'src/client/pages/login/index.tsx',
     },
     output: {
       path: path.resolve(__dirname, 'build/public'),
@@ -36,9 +37,7 @@ const webpackConfig = (env, argv) => {
         {
           test: /.ts(x?)$/,
           exclude: /node_modules/,
-          use: {
-            loader: 'ts-loader',
-          },
+          use: ['babel-loader'],
         },
         {
           enforce: 'pre',
@@ -72,14 +71,16 @@ const webpackConfig = (env, argv) => {
         },
       ],
     },
-    externals: {
-      react: 'React',
-      'react-dom': 'ReactDOM',
-    },
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        template: 'public/index.html',
+        template: 'src/client/public/index.html',
+        excludeChunks: ['login'],
+      }),
+      new HtmlWebpackPlugin({
+        template: 'src/client/public/index.html',
+        chunks: ['login', 'vendors~app~login'],
+        filename: 'login.html',
       }),
       new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'defer',

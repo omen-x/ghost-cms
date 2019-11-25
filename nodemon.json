@@ -1,7 +1,6 @@
 {
   "verbose": false,
-  "ignore": ["output/*", "public/*", "packages/dashboard", "logs"],
-  "watch": ["src/server", "src/index.ts"],
-  "exec": "node --inspect -r ts-node/register ./src/index.ts",
+  "watch": ["src/server", "index.ts"],
+  "exec": "node -r ts-node/register --inspect src/server/index.ts",
   "ext": "ts"
 }
