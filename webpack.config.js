@@ -6,17 +6,17 @@ const ImageMin = require('imagemin-webpack-plugin').default;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
 const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const CopyPlugin = require('copy-webpack-plugin');
 
 const webpackConfig = (env, argv) => {
   const isDev = argv && argv.mode === 'development';
 
   return {
     entry: {
-      app: 'src/client/pages/app/index.tsx',
-      login: 'src/client/pages/login/index.tsx',
+      dashboard: 'src/client/pages/dashboard/index.tsx',
     },
     output: {
-      path: path.resolve(__dirname, 'build/public'),
+      path: path.resolve(__dirname, 'build/app'),
       filename: isDev ? '[name].js' : '[name].[hash].js',
       chunkFilename: isDev ? '[name].js' : '[name].[hash].js',
     },
@@ -74,14 +74,8 @@ const webpackConfig = (env, argv) => {
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        template: 'src/client/public/index.html',
-        excludeChunks: ['login'],
-        filename: 'app.html',
-      }),
-      new HtmlWebpackPlugin({
-        template: 'src/client/public/index.html',
-        chunks: ['login', 'vendors~app~login', 'vendors~login'],
-        filename: 'login.html',
+        template: 'src/client/assets/index.html',
+        filename: 'dashboard.html',
       }),
       new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'defer',
@@ -95,6 +89,9 @@ const webpackConfig = (env, argv) => {
         },
         canPrint: true,
       }),
+      new CopyPlugin([
+        { from: 'public', to: '../public' },
+      ]),
       new ImageMin({
         disable: isDev,
         cache: true,
@@ -122,14 +119,14 @@ const webpackConfig = (env, argv) => {
       }),
     ],
     devServer: {
-      contentBase: path.resolve(__dirname, 'build/public'),
+      // contentBase: path.resolve(__dirname, 'build/app'),
       port: 3000,
       hot: true,
       writeToDisk: false,
       compress: true,
       historyApiFallback: true,
       proxy: {
-        context: ['/api', '/login'],
+        context: ['/api', '/login', '/dashboard'],
         target: 'http://localhost:8080',
       },
       stats: {

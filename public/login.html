@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Ghost CMS | Login</title>
+</head>
+<style>
+  body * {
+    box-sizing: border-box;
+  }
+
+  #login-form {
+    background: #ffffff;
+    border: 1px solid;
+    max-width: 320px;
+    margin: 100px auto;
+    padding: 20px;
+    border-radius: 4px;
+  }
+
+  #login-form p {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+    margin-top: 0;
+  }
+
+  #login-form label {
+    display: block;
+    margin-bottom: 8px;
+    font-size: 18px;
+  }
+
+  #login-form input {
+    padding: 10px 15px;
+    border: 1px solid;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  #login-form button {
+    display: inline-block;
+    padding: 8px 15px;
+  }
+</style>
+<body>
+<form id="login-form">
+  <p>Sign In</p>
+  <label for="email">Your email</label>
+  <input id="email" type="email" required/>
+  <label for="password">Your password</label>
+  <input id="password" type="password" required/>
+  <p style="text-align: center">
+    <button type="submit">Submit</button>
+  </p>
+</form>
+<script>
+  document.getElementById('login-form').addEventListener('submit', () => {
+    const body = {
+      email: document.getElementById('email').value,
+      password: document.getElementById('password').value,
+    };
+    Promise.resolve()
+      .then(() => fetch('/login', {
+        method: 'POST',
+        mode: 'cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(body),
+      }))
+      .then(res => {
+        if (res.ok) window.location.href = res.url;
+        else return res.json()
+          .then(e => {
+            console.log(e);
+          });
+      });
+  });
+</script>
+</body>
+</html>

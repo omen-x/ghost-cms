@@ -33,9 +33,9 @@ mongoose.connection.on('open', () => {
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.static('build/public', {
-  extensions: ['html, htm'],
-}));
+// app.use(express.static('build/app', {
+//   extensions: ['html, htm'],
+// }));
 
 // Session
 const RedisStore = connectRedis(session);

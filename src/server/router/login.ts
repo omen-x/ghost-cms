@@ -19,8 +19,7 @@ router.post('/', (req, res, next) => {
       if (errLogin) return next(errLogin);
 
       logger.debug('Success user auth');
-      // TODO:
-      res.redirect('/');
+      res.redirect('/dashboard');
     });
   })(req, res, next);
 });
