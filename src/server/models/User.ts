@@ -24,15 +24,15 @@ export interface User {
   password: string;
 }
 
-schema.pre('save', function (next) {
+schema.pre('save', function pre(next): void {
   const user = this;
 
   if (!user.isModified()) return next();
 
-  bcrypt.genSalt(10, (err, salt) => {
+  bcrypt.genSalt(10, (err, salt): void => {
     if (err) next(err);
 
-    bcrypt.hash(user.get('password'), salt, (errHash, hash) => {
+    bcrypt.hash(user.get('password'), salt, (errHash, hash): void => {
       if (errHash) return next(errHash);
 
       user.set('password', hash);

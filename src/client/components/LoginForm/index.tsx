@@ -1,10 +1,18 @@
 import React, { Component, FormEvent } from 'react';
 import { FormError, LoginFormTitle, LoginFormWrap } from './styled';
+import { CommonError } from '../../../server/utils/errors';
+
 
 interface State {
   email?: string;
   password?: string;
   error?: string;
+}
+
+interface LoginResponse {
+  ok?: boolean;
+  url: string;
+  json: Function;
 }
 
 class LoginForm extends Component<{}, State> {
@@ -25,11 +33,11 @@ class LoginForm extends Component<{}, State> {
     this.setState({ [name]: value, error: '' });
   };
 
-  private onSubmit = (event: FormEvent<HTMLFormElement>) => {
+  private onSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
 
     Promise.resolve()
-      .then(() => fetch('/login', {
+      .then((): Promise<LoginResponse> => fetch('/login', {
         method: 'POST',
         mode: 'cors',
         redirect: 'follow',
@@ -38,19 +46,19 @@ class LoginForm extends Component<{}, State> {
         },
         body: JSON.stringify(this.state),
       }))
-      .then(response => {
+      .then((response): void => {
         if (response.ok) {
           window.location.href = response.url;
         } else {
           return response.json()
-            .then(e => {
+            .then((e: CommonError): void => {
               if (e.clientMessage) this.setState({ error: e.clientMessage });
             });
         }
       });
   };
 
-  public render() {
+  public render(): JSX.Element {
     const { email, password, error } = this.state;
 
     return (

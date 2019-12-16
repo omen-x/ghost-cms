@@ -6,11 +6,11 @@ import { User } from '../models/User';
 
 const LocalStrategy = local.Strategy;
 
-passport.serializeUser((user: User, done) => {
+passport.serializeUser((user: User, done): void => {
   done(null, user.email);
 });
 
-passport.deserializeUser((email, done) => {
+passport.deserializeUser((email, done): void => {
   User.findOne({ email }, done);
 });
 
@@ -18,12 +18,12 @@ passport.use(new LocalStrategy(
   {
     usernameField: 'email',
   },
-  (email, password, done) => {
-    User.findOne({ email }, (err, user) => {
+  (email, password, done): void => {
+    User.findOne({ email }, (err, user): void => {
       if (err) return done(err);
       if (!user) return done(null, false);
 
-      bcrypt.compare(password, user.get('password'), (passErr, isValid) => {
+      bcrypt.compare(password, user.get('password'), (passErr, isValid): void => {
         if (passErr) return done(err);
         if (!isValid) return done(null, false);
 

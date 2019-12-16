@@ -7,7 +7,7 @@ module.exports = {
   },
   settings: {
     react: {
-      version: 'detect'
+      version: 'detect',
     }
   },
   extends: [
@@ -23,7 +23,7 @@ module.exports = {
   rules: {
     'import/prefer-default-export': 0,
     'lines-between-class-members': ['error', 'always',  {exceptAfterSingleLine: true}],
-    'consistent-return': 1,
+    'consistent-return': 0,
     // JSX
     'jsx-a11y/label-has-associated-control': 0,
     'jsx-a11y/label-has-for': 0,
