@@ -58,7 +58,8 @@
   </p>
 </form>
 <script>
-  document.getElementById('login-form').addEventListener('submit', () => {
+  document.getElementById('login-form').addEventListener('submit', (event) => {
+    event.preventDefault();
     const body = {
       email: document.getElementById('email').value,
       password: document.getElementById('password').value,
