@@ -25,17 +25,15 @@ export interface User {
 }
 
 schema.pre('save', function pre(next): void {
-  const user = this;
-
-  if (!user.isModified()) return next();
+  if (!this.isModified()) return next();
 
   bcrypt.genSalt(10, (err, salt): void => {
     if (err) next(err);
 
-    bcrypt.hash(user.get('password'), salt, (errHash, hash): void => {
+    bcrypt.hash(this.get('password'), salt, (errHash, hash): void => {
       if (errHash) return next(errHash);
 
-      user.set('password', hash);
+      this.set('password', hash);
       next();
     });
   });

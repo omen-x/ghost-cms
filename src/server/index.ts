@@ -21,13 +21,17 @@ const app = express();
 
 // Init DB
 mongoose.connect(DB_URI, { useNewUrlParser: true });
+
 mongoose.connection.on('error', (err): void => {
   logger.error(err);
   process.exit(1);
 });
+
 mongoose.connection.on('open', (): void => {
   logger.info('MongoDB connected');
 });
+
+mongoose.set('useCreateIndex', true);
 
 // General middleware
 app.use(cookieParser());
@@ -51,6 +55,7 @@ app.use(session({
 redisClient.on('connect', (): void => {
   logger.info('Redis store connected');
 });
+
 redisClient.on('error', (err): void => {
   logger.error(err);
   process.exit(1);
