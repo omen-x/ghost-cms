@@ -1,6 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'import', 'security', 'react'],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module'
@@ -8,12 +8,13 @@ module.exports = {
   settings: {
     react: {
       version: 'detect',
-    }
+    },
+    'import/extensions': [ '.js', '.jsx', '.ts', '.tsx' ],
   },
   extends: [
     'plugin:@typescript-eslint/recommended',
     'plugin:react/recommended',
-    'airbnb-typescript'
+    'airbnb-typescript',
   ],
   env: {
     node: true,
@@ -24,6 +25,7 @@ module.exports = {
     'import/prefer-default-export': 0,
     'lines-between-class-members': ['error', 'always',  {exceptAfterSingleLine: true}],
     'consistent-return': 0,
+    'import/no-unused-modules': [2, {'unusedExports': true}],
     // JSX
     'jsx-a11y/label-has-associated-control': 0,
     'jsx-a11y/label-has-for': 0,

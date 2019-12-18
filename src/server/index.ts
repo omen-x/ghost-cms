@@ -21,11 +21,11 @@ const app = express();
 
 // Init DB
 mongoose.connect(DB_URI, { useNewUrlParser: true });
-mongoose.connection.on('error', err => {
+mongoose.connection.on('error', (err): void => {
   logger.error(err);
   process.exit(1);
 });
-mongoose.connection.on('open', () => {
+mongoose.connection.on('open', (): void => {
   logger.info('MongoDB connected');
 });
 
@@ -48,10 +48,10 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-redisClient.on('connect', () => {
+redisClient.on('connect', (): void => {
   logger.info('Redis store connected');
 });
-redisClient.on('error', err => {
+redisClient.on('error', (err): void => {
   logger.error(err);
   process.exit(1);
 });
@@ -65,4 +65,4 @@ app.use('/', router);
 app.use(errorHandler);
 
 //
-app.listen(8080, () => logger.info(`Server is running on port ${port}`));
+app.listen(8080, (): void => logger.info(`Server is running on port ${port}`));
