@@ -3,7 +3,10 @@ import { logger } from '../utils/logger';
 
 
 const initDB = (): void => {
-  mongoose.connect((process.env.DB_URI as string), { useNewUrlParser: true });
+  mongoose.connect((process.env.DB_URI as string), {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  });
 
   mongoose.connection.on('error', (err): void => {
     logger.error(err);

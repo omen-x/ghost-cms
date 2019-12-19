@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import loginRouter from '../features/User/router';
+import productCategoryRouter from '../features/Products/Category/router';
 
 
 const router = express.Router();
@@ -16,12 +17,14 @@ router.use(
 
 // Protected routes
 router.use(
+  '/api',
   protectRoute,
-  // dashboardRouter,
+  //
+  productCategoryRouter,
 );
 
 // Dashboard page
-router.use('/dashboard', express.static('build/app', { extensions: ['html'] }));
+router.use('/dashboard', protectRoute, express.static('build/app', { extensions: ['html'] }));
 
 router.get('/dashboard', (req, res): void => {
   res.sendFile('dashboard.html', { root: 'build/app' });
