@@ -1,8 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { CommonError } from '../../../utils/errors';
 
 
-interface ProductCategory {
+export interface ProductCategory {
   name: string;
   parentCategoryID?: mongoose.Schema.Types.ObjectId;
 }
@@ -20,20 +20,36 @@ const schema = new mongoose.Schema({
 });
 
 
-export const ProductCategory = mongoose.model<ProductCategoryModel>('ProductCategory', schema);
-
-
 schema.pre('save', function pre(next): void {
   const parentCategoryID = this.get('parentCategoryID');
+  const name = this.get('name');
 
   if (parentCategoryID) {
-    ProductCategory.findById(parentCategoryID, (err, cat): void => {
-      if (err) return next(err);
-      if (!cat) return next(new CommonError({ message: 'category not found' }));
+    const model = (this.constructor as Model<ProductCategoryModel>);
 
-      return next();
-    });
+    Promise.all([model.findById(parentCategoryID), model.find({ name })])
+      .then(([parentCategory, similarCategories]) => {
+        // Check whether the parent category exists
+        if (!parentCategory) return next(new CommonError({ message: 'Category not found' }));
+
+        // Check for duplicates (similarCategories have the same name)
+        if (similarCategories) {
+          const isDuplicated = similarCategories.some((similarCategory) => {
+            if (similarCategory.get('parentCategoryID').toString() === parentCategoryID.toString()) {
+              return true;
+            }
+            return false;
+          });
+
+          if (isDuplicated) return next(new CommonError({ message: 'Duplicate category' }));
+        }
+
+        next();
+      })
+      .catch(next);
   } else {
     next();
   }
 });
+
+export const ProductCategory = mongoose.model<ProductCategoryModel>('ProductCategory', schema);
