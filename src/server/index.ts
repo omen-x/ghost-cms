@@ -1,5 +1,4 @@
 import express from 'express';
-import mongoose from 'mongoose';
 import * as bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import redis from 'redis';
@@ -10,36 +9,22 @@ import dotenv from 'dotenv';
 import { errorHandler } from './utils/errors';
 import { logger } from './utils/logger';
 import './middleware/auth';
-import router from './router';
+import rootRouter from './config/rootRouter';
+import initDB from './config/db';
 
 
 dotenv.config();
-const { DB_URI = '', port = 8080 } = process.env;
 
+const { port = 8080 } = process.env;
 const app = express();
 
 
-// Init DB
-mongoose.connect(DB_URI, { useNewUrlParser: true });
-
-mongoose.connection.on('error', (err): void => {
-  logger.error(err);
-  process.exit(1);
-});
-
-mongoose.connection.on('open', (): void => {
-  logger.info('MongoDB connected');
-});
-
-mongoose.set('useCreateIndex', true);
+initDB();
 
 // General middleware
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-// app.use(express.static('build/app', {
-//   extensions: ['html, htm'],
-// }));
 
 // Session
 const RedisStore = connectRedis(session);
@@ -66,7 +51,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 // Custom middleware
-app.use('/', router);
+app.use('/', rootRouter);
 app.use(errorHandler);
 
 //

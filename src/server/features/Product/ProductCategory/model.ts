@@ -1,5 +1,5 @@
 import mongoose from 'mongoose';
-import { CommonError } from '../utils/errors';
+import { CommonError } from '../../../utils/errors';
 
 
 interface ProductCategory {

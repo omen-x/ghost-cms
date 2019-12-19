@@ -1,7 +1,7 @@
 import passport from 'passport';
 import local from 'passport-local';
 import bcrypt from 'bcrypt';
-import { User } from '../models/User';
+import { User } from '../features/User/model';
 
 
 const LocalStrategy = local.Strategy;
