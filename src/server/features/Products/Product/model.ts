@@ -13,6 +13,7 @@ interface Product {
 
 interface ProductModel extends Product, mongoose.Document {}
 
+// TODO: images
 const schema = new mongoose.Schema({
   name: {
     type: String,
