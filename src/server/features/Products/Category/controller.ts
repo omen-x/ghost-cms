@@ -3,13 +3,12 @@ import { ProductCategory } from './model';
 
 
 const createProductCategory = (req: Request, res: Response, next: NextFunction): void => {
-  const { name, parentCategoryID }: ProductCategory = req.body;
-  const newCategory = new ProductCategory({ name, parentCategoryID });
+  const newCategory = new ProductCategory(req.body);
 
-  newCategory.save((err) => {
+  newCategory.save((err, doc) => {
     if (err) return next(err);
 
-    res.sendStatus(204);
+    res.json(doc.toObject());
   });
 };
 

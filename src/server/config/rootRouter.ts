@@ -1,6 +1,7 @@
 import express, { Request, Response } from 'express';
 import loginRouter from '../features/User/router';
 import productCategoryRouter from '../features/Products/Category/router';
+import productRouter from '../features/Products/Product/router';
 
 
 const router = express.Router();
@@ -21,6 +22,7 @@ router.use(
   protectRoute,
   //
   productCategoryRouter,
+  productRouter,
 );
 
 // Dashboard page
