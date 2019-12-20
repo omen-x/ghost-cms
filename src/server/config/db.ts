@@ -6,6 +6,7 @@ const initDB = (): void => {
   mongoose.connect((process.env.DB_URI as string), {
     useNewUrlParser: true,
     useUnifiedTopology: true,
+    useFindAndModify: false,
   });
 
   mongoose.connection.on('error', (err): void => {

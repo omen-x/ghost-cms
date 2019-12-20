@@ -42,10 +42,41 @@ const getProductsByCategory = (req: Request, res: Response, next: NextFunction):
   });
 };
 
+// TODO:
+// - categoryID should be validated
+const updateProduct = (req: Request, res: Response, next: NextFunction): void => {
+  const { _id } = req.body;
+
+  Product.findOneAndUpdate(
+    { _id },
+    req.body,
+    { new: true, runValidators: true },
+    (err, product): void => {
+      if (err) return next(err);
+      if (!product) return next(new CommonError({ message: 'Product not found' }));
+
+      res.json(product.toObject());
+    },
+  );
+};
+
+const deleteProduct = (req: Request, res: Response, next: NextFunction): void => {
+  const { id } = req.params;
+
+  Product.findByIdAndDelete(id, (err, product) => {
+    if (err) return next(err);
+    if (!product) return next(new CommonError({ message: 'Product not found' }));
+
+    res.sendStatus(204);
+  });
+};
+
 
 export default {
   createProduct,
   getProductByID,
   getProducts,
   getProductsByCategory,
+  updateProduct,
+  deleteProduct,
 };
