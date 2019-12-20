@@ -6,6 +6,7 @@ import connectRedis from 'connect-redis';
 import session from 'express-session';
 import passport from 'passport';
 import dotenv from 'dotenv';
+import helmet from 'helmet';
 import { errorHandler } from './utils/errors';
 import { logger } from './utils/logger';
 import './middleware/auth';
@@ -22,6 +23,10 @@ const app = express();
 initDB();
 
 // General middleware
+app.use(helmet({
+  permittedCrossDomainPolicies: true,
+  referrerPolicy: true,
+}));
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
