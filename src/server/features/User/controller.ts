@@ -50,11 +50,12 @@ const getUserInfo = (req: Request, res: Response): void => {
 
 const logoutUser = (req: Request, res: Response): void => {
   req.logout();
-  res.redirect('/');
+  res.redirect('/login');
 };
 
 const loginPage = (req: Request, res: Response): void => {
-  res.sendFile('login.html', { root: './build/public' });
+  if (req.isAuthenticated()) res.redirect('/');
+  else res.sendFile('login.html', { root: './build/public' });
 };
 
 export default {

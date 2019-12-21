@@ -25,16 +25,17 @@ router.use(
   productRouter,
 );
 
-// Dashboard(home page)
-router.use('/dashboard', protectRoute, express.static('build/app', { extensions: ['html'] }));
+// Home(Dashboard)
+router.use('/', protectRoute, express.static('build/app', { extensions: ['html'] }));
 
-router.get('/dashboard', (req, res): void => {
+router.get('/', (req, res): void => {
   res.sendFile('index.html', { root: 'build/app' });
 });
 
-// Default redirect
 router.get('*', (req, res): void => {
-  res.redirect('/login');
+  // TODO: 404 page redirect
+  if (req.isAuthenticated()) res.redirect('/');
+  else res.redirect('/login');
 });
 
 
