@@ -13,7 +13,7 @@ const webpackConfig = (env, argv) => {
 
   return {
     entry: {
-      dashboard: 'src/client/pages/dashboard/index.tsx',
+      app: 'src/client/app/index.tsx',
     },
     output: {
       path: path.resolve(__dirname, 'build/app'),
@@ -27,7 +27,7 @@ const webpackConfig = (env, argv) => {
       },
     },
     resolve: {
-      extensions: ['.js', '.tsx'],
+      extensions: ['.js', '.ts', '.tsx'],
       alias: {
         src: path.resolve(__dirname, 'src'),
       },
@@ -74,8 +74,8 @@ const webpackConfig = (env, argv) => {
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        template: 'src/client/assets/index.html',
-        filename: 'dashboard.html',
+        template: 'src/client/assets/app.html',
+        filename: 'index.html',
       }),
       new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'defer',
@@ -89,9 +89,9 @@ const webpackConfig = (env, argv) => {
         },
         canPrint: true,
       }),
-      new CopyPlugin([
-        { from: 'public', to: '../public' },
-      ]),
+      // new CopyPlugin([
+        // { from: 'public', to: '../public' },
+      // ]),
       new ImageMin({
         disable: isDev,
         cache: true,
@@ -113,10 +113,10 @@ const webpackConfig = (env, argv) => {
           ],
         },
       }),
-      new BundleAnalyzer({
-        analyzerMode: isDev ? 'static' : 'disabled',
-        openAnalyzer: false,
-      }),
+      // new BundleAnalyzer({
+      // analyzerMode: isDev ? 'static' : 'disabled',
+      // openAnalyzer: false,
+      // }),
     ],
     devServer: {
       // contentBase: path.resolve(__dirname, 'build/app'),
@@ -126,7 +126,7 @@ const webpackConfig = (env, argv) => {
       compress: true,
       historyApiFallback: true,
       proxy: {
-        context: ['/api', '/login', '/dashboard'],
+        context: ['/api', '/login'],
         target: 'http://localhost:8080',
       },
       stats: {

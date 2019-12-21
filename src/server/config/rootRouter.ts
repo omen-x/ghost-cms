@@ -25,11 +25,11 @@ router.use(
   productRouter,
 );
 
-// Dashboard page
+// Dashboard(home page)
 router.use('/dashboard', protectRoute, express.static('build/app', { extensions: ['html'] }));
 
 router.get('/dashboard', (req, res): void => {
-  res.sendFile('dashboard.html', { root: 'build/app' });
+  res.sendFile('index.html', { root: 'build/app' });
 });
 
 // Default redirect

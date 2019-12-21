@@ -31,5 +31,6 @@ module.exports = {
     'jsx-a11y/label-has-for': 0,
     // Typescript
     '@typescript-eslint/no-var-requires': 0,
+    '@typescript-eslint/ban-ts-ignore': 0,
   }
 };
