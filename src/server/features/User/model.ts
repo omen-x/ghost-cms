@@ -24,6 +24,10 @@ export interface User {
   password: string;
 }
 
+export interface UserModel extends User, mongoose.Document {
+  getInfo: () => object;
+}
+
 schema.pre('save', function pre(next): void {
   if (!this.isModified()) return next();
 
@@ -39,5 +43,20 @@ schema.pre('save', function pre(next): void {
   });
 });
 
+/**
+ * Returns an object with user informatin, excluding some fields
+ * @returns {object}
+ */
+schema.methods.getInfo = function getInfo(): object {
+  const user = this.toObject();
+  const userInfo: { [index: string]: string | number } = {};
 
-export const User = mongoose.model('User', schema);
+  Object.keys(user).forEach((key) => {
+    if (key !== 'password') userInfo[key] = user[key];
+  });
+
+  return userInfo;
+};
+
+
+export const User = mongoose.model<UserModel>('User', schema);
