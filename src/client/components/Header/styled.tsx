@@ -1,20 +1,22 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
 import { colors, boxShadow } from '../../utils/constants';
-import { Content } from '../Utils/Content';
+import { FluidContent } from '../Utils/Content';
 
 interface NavTabProps {
   active?: boolean;
 }
 
 export const HeaderWrap = styled.header`
+  flex-shrink: 0;
   background: ${colors.accent};
   box-shadow: ${boxShadow.border};
 `;
 
-export const HeaderContent = styled(Content)`
+export const HeaderContent = styled(FluidContent)`
   display: flex;
   align-items: center;
+  padding-left: 0;
 `;
 
 export const Nav = styled.div`
@@ -42,7 +44,7 @@ export const NavTab = styled(NavLink)`
   &.active {
     pointer-events: none;
     background: ${colors.accent_dark};
-    box-shadow: inset 0 0 2px 2px rgba(0,0,0, .1);
+    // box-shadow: inset 0 0 2px 2px rgba(0,0,0, .1);
   }
 `;
 

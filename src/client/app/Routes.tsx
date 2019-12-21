@@ -3,17 +3,24 @@ import React from 'react';
 import Header from '../components/Header/Header';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Inventory from '../pages/Inventory/Inventory';
+import { PageWrap, BodyWrap } from '../components/Utils/Content';
+import Sidebar from '../components/Sidebar/Sidebar';
 
 
-// TODO:
-// - 404
 const Routes = (): JSX.Element => (
   <Router>
-    <Header />
-    <Switch>
-      <Route path="/" exact component={Dashboard} />
-      <Route path="/inventory" component={Inventory} />
-    </Switch>
+    <Sidebar />
+    <BodyWrap>
+      <Header />
+      <PageWrap>
+
+        <Switch>
+          <Route path="/" exact component={Dashboard} />
+          <Route path="/inventory" component={Inventory} />
+        </Switch>
+
+      </PageWrap>
+    </BodyWrap>
   </Router>
 );
 
