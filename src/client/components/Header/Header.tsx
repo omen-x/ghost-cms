@@ -1,6 +1,7 @@
 import React from 'react';
 import { Icon } from '@blueprintjs/core';
 import { HeaderWrap, Nav, NavTab, NavTabTitle, LogOut, LogOutText, HeaderContent } from './styled';
+import { logOut } from '../../services/auth';
 
 
 const Header = (): JSX.Element => (
@@ -16,7 +17,7 @@ const Header = (): JSX.Element => (
           <NavTabTitle>Inventory</NavTabTitle>
         </NavTab>
       </Nav>
-      <LogOut>
+      <LogOut onClick={logOut}>
         <Icon icon="log-out" />
         <LogOutText>Log Out</LogOutText>
       </LogOut>

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { NavLink } from 'react-router-dom';
-import { colors } from '../../utils/constants';
+import { colors, boxShadow } from '../../utils/constants';
 import { Content } from '../Utils/Content';
 
 interface NavTabProps {
@@ -9,6 +9,7 @@ interface NavTabProps {
 
 export const HeaderWrap = styled.header`
   background: ${colors.accent};
+  box-shadow: ${boxShadow.border};
 `;
 
 export const HeaderContent = styled(Content)`
@@ -41,8 +42,8 @@ export const NavTab = styled(NavLink)`
   &.active {
     pointer-events: none;
     background: ${colors.accent_dark};
+    box-shadow: inset 0 0 2px 2px rgba(0,0,0, .1);
   }
-
 `;
 
 export const NavTabTitle = styled.span`

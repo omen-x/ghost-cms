@@ -10,6 +10,7 @@ const CopyPlugin = require('copy-webpack-plugin');
 
 const webpackConfig = (env, argv) => {
   const isDev = argv && argv.mode === 'development';
+  const writeToDisk = argv && argv.write;
 
   return {
     entry: {
@@ -76,6 +77,7 @@ const webpackConfig = (env, argv) => {
       new HtmlWebpackPlugin({
         template: 'src/client/assets/index.html',
         filename: 'index.html',
+        favicon: 'src/client/assets/favicon.ico',
       }),
       new ScriptExtHtmlWebpackPlugin({
         defaultAttribute: 'defer',
@@ -119,10 +121,9 @@ const webpackConfig = (env, argv) => {
       // }),
     ],
     devServer: {
-      // contentBase: path.resolve(__dirname, 'build/app'),
       port: 3000,
       hot: true,
-      writeToDisk: false,
+      writeToDisk,
       compress: true,
       historyApiFallback: true,
       proxy: {

@@ -4,6 +4,7 @@
   "main": "src/server/index.ts",
   "scripts": {
     "dev-client": "webpack-dev-server --mode=development --progress --inline",
+    "dev-client-write": "webpack-dev-server --mode=development --progress --inline --write",
     "dev-server": "nodemon",
     "lint-client": "eslint --fix --ext .js,.jsx,.ts,.tsx src/client",
     "lint-server": "eslint --fix --ext .js,.ts src/server",
@@ -49,6 +50,7 @@
     "@babel/preset-typescript": "^7.7.4",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
+    "@types/axios": "^0.14.0",
     "@types/bcrypt": "^3.0.0",
     "@types/connect-redis": "0.0.13",
     "@types/cookie-parser": "^1.4.2",

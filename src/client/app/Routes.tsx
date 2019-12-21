@@ -9,7 +9,7 @@ const Routes = (): JSX.Element => (
   <Router>
     <Header />
     <Route path="/" exact component={Dashboard} />
-    <Route path="/inventory/" component={Inventory} />
+    <Route path="/inventory" component={Inventory} />
   </Router>
 );
 
