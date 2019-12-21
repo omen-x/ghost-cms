@@ -37,7 +37,7 @@ const loginUser = (req: Request, res: Response, next: NextFunction): void => {
       if (errLogin) return next(errLogin);
 
       logger.debug('Success user auth');
-      res.redirect('/dashboard');
+      res.redirect('/');
     });
   })(req, res, next);
 };

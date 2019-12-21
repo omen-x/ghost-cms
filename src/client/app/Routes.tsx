@@ -1,15 +1,19 @@
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
 import Header from '../components/Header/Header';
 import Dashboard from '../pages/Dashboard/Dashboard';
 import Inventory from '../pages/Inventory/Inventory';
 
 
+// TODO:
+// - 404
 const Routes = (): JSX.Element => (
   <Router>
     <Header />
-    <Route path="/" exact component={Dashboard} />
-    <Route path="/inventory" component={Inventory} />
+    <Switch>
+      <Route path="/" exact component={Dashboard} />
+      <Route path="/inventory" component={Inventory} />
+    </Switch>
   </Router>
 );
 

@@ -28,14 +28,10 @@ router.use(
 // Home(Dashboard)
 router.use('/', protectRoute, express.static('build/app', { extensions: ['html'] }));
 
-router.get('/', (req, res): void => {
-  res.sendFile('index.html', { root: 'build/app' });
-});
-
 router.get('*', (req, res): void => {
-  // TODO: 404 page redirect
-  if (req.isAuthenticated()) res.redirect('/');
-  else res.redirect('/login');
+  if (req.isAuthenticated()) {
+    res.sendFile('index.html', { root: 'build/app' });
+  } else res.redirect('/login');
 });
 
 
