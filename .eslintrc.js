@@ -27,7 +27,7 @@ module.exports = {
     'consistent-return': 0,
     'import/no-unused-modules': [2, {'unusedExports': true}],
     "object-curly-newline": ["error", {
-      multiline: true,
+      ImportDeclaration: 'never',
     }],
     // JSX
     'jsx-a11y/label-has-associated-control': 0,

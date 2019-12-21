@@ -14,7 +14,7 @@ export const HeaderWrap = styled.header`
 export const HeaderContent = styled(Content)`
   display: flex;
   align-items: center;
-`
+`;
 
 export const Nav = styled.div`
   display: flex;
