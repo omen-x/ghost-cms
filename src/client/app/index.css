@@ -1,0 +1,16 @@
+body {
+  margin: 0;
+  font-family: 'Roboto', 'sans-serif';
+}
+
+a {
+  transition: color .2s;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+.title-font {
+  font-family: 'sans-serif';
+}

@@ -74,7 +74,7 @@ const webpackConfig = (env, argv) => {
     plugins: [
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
-        template: 'src/client/assets/app.html',
+        template: 'src/client/assets/index.html',
         filename: 'index.html',
       }),
       new ScriptExtHtmlWebpackPlugin({

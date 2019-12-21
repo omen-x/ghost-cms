@@ -26,6 +26,9 @@ module.exports = {
     'lines-between-class-members': ['error', 'always',  {exceptAfterSingleLine: true}],
     'consistent-return': 0,
     'import/no-unused-modules': [2, {'unusedExports': true}],
+    "object-curly-newline": ["error", {
+      multiline: true,
+    }],
     // JSX
     'jsx-a11y/label-has-associated-control': 0,
     'jsx-a11y/label-has-for': 0,
