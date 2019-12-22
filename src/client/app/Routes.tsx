@@ -5,6 +5,7 @@ import Dashboard from '../pages/Dashboard/Dashboard';
 import Inventory from '../pages/Inventory/Inventory';
 import { PageWrap, BodyWrap } from '../components/Utils/Content';
 import Sidebar from '../components/Sidebar/Sidebar';
+import NotFound from '../pages/NotFound/NotFound';
 
 
 const Routes = (): JSX.Element => (
@@ -17,6 +18,7 @@ const Routes = (): JSX.Element => (
         <Switch>
           <Route path="/" exact component={Dashboard} />
           <Route path="/inventory" component={Inventory} />
+          <Route path="*" component={NotFound} />
         </Switch>
 
       </PageWrap>
