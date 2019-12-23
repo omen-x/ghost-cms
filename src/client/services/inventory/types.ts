@@ -1,18 +1,20 @@
 import { ProductCategoryModel } from '../../../server/features/Inventory/Category/model';
 import { ProductModel } from '../../../server/features/Inventory/Product/model';
-
-export const SET_CATEGORIES = 'SET_CATEGORIES';
-export const SET_PRODUCTS = 'SET_PRODUCTS';
+import { DefaultActionType } from '../../utils/types';
 
 
-export interface SetCategoriesAction {
-  type: string;
-  payload: ProductCategoryModel[];
+export enum INVENTORY_ACTION_TYPES {
+  SET_CATEGORIES = 'SET_CATEGORIES',
+  SET_PRODUCTS = 'SET_PRODUCTS'
 }
 
-export interface SetProductsAction {
-  type: string;
-  payload: ProductModel[];
+export interface InventoryState {
+  categories: ProductCategoryModel[];
+  products: ProductModel[];
 }
 
-export type InventoryActionTypes = SetCategoriesAction | SetProductsAction;
+export type SetCategoriesAction = DefaultActionType<ProductCategoryModel[]>;
+export type SetProductsAction = DefaultActionType<ProductModel[]>;
+
+
+export type InventoryActions = SetCategoriesAction | SetProductsAction;

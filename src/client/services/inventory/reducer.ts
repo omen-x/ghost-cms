@@ -1,26 +1,19 @@
-import { ProductCategoryModel } from '../../../server/features/Inventory/Category/model';
-import { ProductModel } from '../../../server/features/Inventory/Product/model';
-import { InventoryActionTypes, SetCategoriesAction, SetProductsAction, SET_CATEGORIES, SET_PRODUCTS } from './types';
+import { InventoryActions, InventoryState, INVENTORY_ACTION_TYPES, SetCategoriesAction, SetProductsAction } from './types';
 
-
-interface InventoryState {
-  categories: ProductCategoryModel[];
-  products: ProductModel[];
-}
 
 const initialState: InventoryState = {
   categories: [],
   products: [],
 };
 
-const inventoryReducer = (state = initialState, action: InventoryActionTypes): InventoryState => {
+const inventoryReducer = (state = initialState, action: InventoryActions): InventoryState => {
   switch (action.type) {
-    case SET_CATEGORIES:
+    case INVENTORY_ACTION_TYPES.SET_CATEGORIES:
       return {
         ...state,
         categories: (action as SetCategoriesAction).payload,
       };
-    case SET_PRODUCTS:
+    case INVENTORY_ACTION_TYPES.SET_PRODUCTS:
       return {
         ...state,
         products: (action as SetProductsAction).payload,

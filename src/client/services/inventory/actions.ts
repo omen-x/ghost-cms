@@ -1,14 +1,15 @@
 import { ProductCategoryModel } from '../../../server/features/Inventory/Category/model';
 import { ProductModel } from '../../../server/features/Inventory/Product/model';
-import { InventoryActionTypes, SET_CATEGORIES, SET_PRODUCTS } from './types';
+import { DefaultActionType } from '../../utils/types';
+import { INVENTORY_ACTION_TYPES } from './types';
 
 
-export const setCategories = (categories: ProductCategoryModel[]): InventoryActionTypes => ({
-  type: SET_CATEGORIES,
+export const setCategories = (categories: ProductCategoryModel[]): DefaultActionType<ProductCategoryModel[]> => ({
+  type: INVENTORY_ACTION_TYPES.SET_CATEGORIES,
   payload: categories,
 });
 
-export const setProducts = (products: ProductModel[]): InventoryActionTypes => ({
-  type: SET_PRODUCTS,
+export const setProducts = (products: ProductModel[]): DefaultActionType<ProductModel[]> => ({
+  type: INVENTORY_ACTION_TYPES.SET_PRODUCTS,
   payload: products,
 });
