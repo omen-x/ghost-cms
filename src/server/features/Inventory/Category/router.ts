@@ -5,8 +5,8 @@ import controller from './controller';
 const router = express.Router();
 
 router.route('/product-category')
-  .post(controller.createProductCategory);
-// .get(controller.getProductCategory)
+  .post(controller.createProductCategory)
+  .get(controller.getProductCategory);
 // .put(controller.updateProductCategory);
 
 

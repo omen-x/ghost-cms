@@ -18,10 +18,11 @@ const webpackConfig = (env, argv) => {
     },
     output: {
       path: path.resolve(__dirname, 'build/app'),
+      publicPath: '/',
       filename: isDev ? '[name].js' : '[name].[hash].js',
       chunkFilename: isDev ? '[name].js' : '[name].[hash].js',
     },
-    devtool: isDev ? 'eval' : 'nosources-source-map',
+    devtool: isDev ? 'eval-source-map' : 'nosources-source-map',
     optimization: {
       splitChunks: {
         chunks: 'all',
@@ -42,7 +43,7 @@ const webpackConfig = (env, argv) => {
         },
         {
           enforce: 'pre',
-          test: /.js$/,
+          test: /.ts(x?)$/,
           loader: 'source-map-loader',
         },
         {

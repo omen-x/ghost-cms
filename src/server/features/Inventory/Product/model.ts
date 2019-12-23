@@ -11,7 +11,7 @@ interface Product {
   };
 }
 
-interface ProductModel extends Product, mongoose.Document {}
+export interface ProductModel extends Product, mongoose.Document {}
 
 // TODO:
 // - images support

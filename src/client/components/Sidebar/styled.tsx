@@ -3,11 +3,11 @@ import styled from 'styled-components';
 import { colors } from '../../utils/constants';
 
 
-interface SidebarProps {
+interface ActiveProp {
   active?: boolean;
 }
 
-export const SidebarWrap = styled.div<SidebarProps>`
+export const SidebarWrap = styled.div<ActiveProp>`
   flex-shrink: 0;
   width: 300px;
   background: ${colors.bg_sidebar};
@@ -20,7 +20,7 @@ export const SidebarWrap = styled.div<SidebarProps>`
 `;
 
 export const SidebarContent = styled.div`
-  padding: 20px;
+  padding: 50px 0;
 `;
 
 export const SidebarHeader = styled.header`
@@ -28,7 +28,7 @@ export const SidebarHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   height: 53px;
-  padding: 5px 15px;
+  padding: 5px 20px;
   color: #ffffff;
   border-bottom: 1px solid ${colors.accent};
 `;
@@ -42,4 +42,31 @@ export const SidebarHeaderTitle = styled.span`
 
 export const SidebarToggle = styled(Icon)`
   cursor: pointer;
+`;
+
+export const SidebarCats = styled.div``;
+
+export const SidebarCat = styled.div<ActiveProp>`
+  display: flex;
+  align-items: center;
+  padding: 15px 20px;
+  color: #ffffff;
+  border-top: 1px solid ${colors.accent};
+  cursor: pointer;
+  transition: background .2s;
+
+  &:last-child {
+    border-bottom: 1px solid ${colors.accent};
+  }
+
+  ${(props) => props.active && `
+    background: ${colors.accent_dark};
+  `}
+`;
+
+export const SidebarCatTitle = styled.span`
+  margin-left: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: .8px;
 `;

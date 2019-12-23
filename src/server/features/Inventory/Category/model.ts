@@ -1,13 +1,15 @@
 import mongoose, { Model } from 'mongoose';
 import { CommonError } from '../../../utils/errors';
+import { IconName } from '@blueprintjs/icons';
 
 
 export interface ProductCategory {
   name: string;
   parentCategoryID?: mongoose.Schema.Types.ObjectId;
+  icon: IconName;
 }
 
-interface ProductCategoryModel extends ProductCategory, mongoose.Document {}
+export interface ProductCategoryModel extends ProductCategory, mongoose.Document {}
 
 const schema = new mongoose.Schema({
   name: {
@@ -17,6 +19,10 @@ const schema = new mongoose.Schema({
   parentCategoryID: {
     type: mongoose.Schema.Types.ObjectId,
   },
+  icon: {
+    type: String,
+    required: true,
+  }
 });
 
 

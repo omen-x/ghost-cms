@@ -1,4 +1,4 @@
-import http from './network';
+import http from '../network/network';
 
 
 export const logOut = (): Promise<void> => http.get('/logout')
