@@ -50,10 +50,10 @@ export const SidebarCat = styled.div<ActiveProp>`
   display: flex;
   align-items: center;
   padding: 15px 20px;
-  color: #ffffff;
   border-top: 1px solid ${colors.accent};
-  cursor: pointer;
   transition: background .2s;
+  cursor: pointer;
+  color: #ffffff;
 
   &:last-child {
     border-bottom: 1px solid ${colors.accent};

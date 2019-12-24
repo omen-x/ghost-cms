@@ -17,7 +17,7 @@ const Routes = (): JSX.Element => (
 
         <Switch>
           <Route path="/" exact component={Dashboard} />
-          <Route path="/inventory" exact component={Inventory} />
+          <Route path="/inventory" component={Inventory} />
           <Route path="*" component={NotFound} />
         </Switch>
 

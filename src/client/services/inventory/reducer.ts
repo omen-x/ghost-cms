@@ -1,4 +1,5 @@
-import { InventoryActions, InventoryState, INVENTORY_ACTION_TYPES, SetCategoriesAction, SetProductsAction } from './types';
+import { createReducer, ReducerCases } from '../../app/types';
+import { InventoryActionMap, InventoryState } from './types';
 
 
 const initialState: InventoryState = {
@@ -6,22 +7,17 @@ const initialState: InventoryState = {
   products: [],
 };
 
-const inventoryReducer = (state = initialState, action: InventoryActions): InventoryState => {
-  switch (action.type) {
-    case INVENTORY_ACTION_TYPES.SET_CATEGORIES:
-      return {
-        ...state,
-        categories: (action as SetCategoriesAction).payload,
-      };
-    case INVENTORY_ACTION_TYPES.SET_PRODUCTS:
-      return {
-        ...state,
-        products: (action as SetProductsAction).payload,
-      };
-    default:
-      return state;
-  }
+
+const reducerCases: ReducerCases<InventoryState, InventoryActionMap> = {
+  SET_PRODUCTS_CATEGORIES: (state, payload) => ({
+    ...state,
+    categories: payload,
+  }),
+  SET_PRODUCTS: (state, payload) => ({
+    ...state,
+    products: payload,
+  }),
 };
 
 
-export default inventoryReducer;
+export default createReducer<InventoryState, InventoryActionMap>(initialState, reducerCases);

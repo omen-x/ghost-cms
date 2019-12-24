@@ -30,6 +30,7 @@ module.exports = {
       ImportDeclaration: 'never',
     }],
     'no-underscore-dangle': 0,
+    'max-len': 0,
     // JSX
     'jsx-a11y/label-has-associated-control': 0,
     'jsx-a11y/label-has-for': 0,

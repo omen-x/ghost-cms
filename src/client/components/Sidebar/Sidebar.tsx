@@ -1,16 +1,24 @@
 import { Icon } from '@blueprintjs/core';
-import React, { useState, useEffect } from 'react';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { Dispatch } from 'redux';
+import { setPageCategory as setPageCategoryAction } from '../../services/navigation/actions';
+import { mapPathToPage } from '../../utils';
 import { categoriesMapping, SidebarCategory } from '../../utils/mapping';
 import { SidebarCat, SidebarCats, SidebarCatTitle, SidebarContent, SidebarHeader, SidebarHeaderTitle, SidebarToggle, SidebarWrap } from './styled';
-import { mapPathToPage } from '../../utils';
+import { AppState } from '../../app/reducer';
+import { currentPageCategorySelector } from '../../services/navigation/selectors';
 
 
-const renderCategories = (categories: SidebarCategory[]): JSX.Element => {
-  const [activeCat, setActiveCat] = useState(categories[0].name);
+interface Props extends RouteComponentProps {
+  currentPageCategory: string;
+  setPageCategory: (s: string) => void;
+}
 
+const renderCategories = (categories: SidebarCategory[], setPageCategory: (s: string) => void, currentPageCategory: string): JSX.Element => {
   useEffect(() => {
-    setActiveCat(categories[0].name);
+    setPageCategory(categories[0].name);
   }, [categories]);
 
   return (
@@ -18,8 +26,8 @@ const renderCategories = (categories: SidebarCategory[]): JSX.Element => {
       {categories.map((category) => (
         <SidebarCat
           key={category.name}
-          active={activeCat === category.name}
-          onClick={(): void => setActiveCat(category.name)}
+          active={category.name === currentPageCategory}
+          onClick={(): void => setPageCategory(category.name)}
         >
           <Icon icon={category.icon} />
           <SidebarCatTitle>{category.name}</SidebarCatTitle>
@@ -29,9 +37,7 @@ const renderCategories = (categories: SidebarCategory[]): JSX.Element => {
   );
 };
 
-// TOOD:
-// replace path mapping with stored value
-const Sidebar = ({ location }: RouteComponentProps): JSX.Element => {
+const Sidebar = ({ location, setPageCategory, currentPageCategory }: Props): JSX.Element => {
   const currentPage = mapPathToPage(location.pathname);
   const categories = categoriesMapping[currentPage];
 
@@ -48,12 +54,19 @@ const Sidebar = ({ location }: RouteComponentProps): JSX.Element => {
       </SidebarHeader>
       <SidebarContent>
         <SidebarCats>
-          {categories && categories.length && renderCategories(categories)}
+          {categories && categories.length && renderCategories(categories, setPageCategory, currentPageCategory)}
         </SidebarCats>
       </SidebarContent>
     </SidebarWrap>
   );
 };
 
+const mapStateToProps = (state: AppState) => ({
+  currentPageCategory: currentPageCategorySelector(state),
+});
 
-export default withRouter(Sidebar);
+const mapDispatchToProps = (dispatch: Dispatch<ReturnType<typeof setPageCategoryAction>>) => ({
+  setPageCategory: (category: string) => dispatch(setPageCategoryAction(category)),
+});
+
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Sidebar));

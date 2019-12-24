@@ -1,8 +1,9 @@
 import mongoose, { Model } from 'mongoose';
-import { CommonError } from '../../../utils/errors';
 import { IconName } from '@blueprintjs/icons';
+import { CommonError } from '../../../utils/errors';
 
 
+// TODO: extract types in to separate file
 export interface ProductCategory {
   name: string;
   parentCategoryID?: mongoose.Schema.Types.ObjectId;
@@ -22,7 +23,7 @@ const schema = new mongoose.Schema({
   icon: {
     type: String,
     required: true,
-  }
+  },
 });
 
 

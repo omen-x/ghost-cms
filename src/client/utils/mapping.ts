@@ -3,16 +3,17 @@ import { IconName } from '@blueprintjs/core';
 
 export interface SidebarCategory {
   name: string;
+  path: string;
   icon: IconName;
 }
 
-// Categories for Sidebar on each page
+// Sub-categories for each page(inventory,dashboard, etc)
 export const categoriesMapping: { [index: string]: SidebarCategory[] } = {
   dashboard: [
-    { name: 'logs', icon: 'list-columns' },
+    { name: 'logs', path: 'logs', icon: 'list-columns' },
   ],
   inventory: [
-    { name: 'categories', icon: 'list-columns' },
-    { name: 'products', icon: 'cube' },
+    { name: 'categories', path: 'categories', icon: 'list-columns' },
+    { name: 'products', path: 'products', icon: 'cube' },
   ],
 };
