@@ -1,9 +1,17 @@
 import React from 'react';
-import { Content } from '../../components/Utils/Content';
+import { Route, Switch } from 'react-router-dom';
+import { PageContent } from '../../components/Utils/Content';
+import { PageTitle } from '../../components/Utils/Titles';
+import CategoriesPage from './CategoriesPage';
 
 
 const Inventory = (): JSX.Element => (
-  <Content>Inventory Page</Content>
+  <PageContent>
+    <PageTitle>Products Categories</PageTitle>
+    <Switch>
+      <Route path="/categories" component={CategoriesPage} />
+    </Switch>
+  </PageContent>
 );
 
 export default Inventory;

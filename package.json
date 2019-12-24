@@ -7,7 +7,7 @@
     "dev-client-write": "webpack-dev-server --mode=development --progress --inline --write",
     "dev-server": "nodemon",
     "lint-client": "eslint --quiet --fix --ext .js,.jsx,.ts,.tsx src/client",
-    "lint-server": "eslint --fix --ext .js,.ts src/server",
+    "lint-server": "eslint --quiet --fix --ext .js,.ts src/server",
     "lint": "eslint --fix --ext .js,.jsx,.ts,.tsx src/",
     "build-client": "npm run lint-client && tsc -p src/client && webpack --mode=production",
     "build-server": "rm -rf build/server/**/* && mkdir -p build/server && npm run lint-server && tsc -p src/server",

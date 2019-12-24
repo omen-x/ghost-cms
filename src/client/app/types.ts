@@ -20,9 +20,9 @@ export type ReducerCases<State, ActionMap> = {
 };
 
 
-interface ActionObject<ActionMap, T extends ActionType<ActionMap>> extends ReduxAction {
-  type: T;
-  payload: ActionPayload<ActionMap, T>;
+interface ActionObject<ActionMap, Type extends ActionType<ActionMap>> extends ReduxAction {
+  type: Type;
+  payload: ActionPayload<ActionMap, Type>;
 }
 
 

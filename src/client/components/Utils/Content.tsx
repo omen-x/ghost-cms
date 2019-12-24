@@ -21,5 +21,9 @@ export const BodyWrap = styled.div`
 
 export const PageWrap = styled.main`
   flex-grow: 1; 
-  padding: 20px;
+`;
+
+export const PageContent = styled(Content)`
+  padding-top: 25px;
+  padding-bottom: 25px;
 `;
