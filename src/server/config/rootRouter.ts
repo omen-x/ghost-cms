@@ -11,13 +11,13 @@ const protectRoute = (req: Request, res: Response, next: Function): void => {
   else res.redirect('/login');
 };
 
+router.use(userRouter);
 
 // Protected routes
 router.use(
   '/api',
   protectRoute,
   //
-  userRouter,
   productCategoryRouter,
   productRouter,
 );
