@@ -2,14 +2,12 @@ import express from 'express';
 import controller from './controller';
 
 
-const router = express.Router();
+const userRouter = express.Router();
 
-router.get('/login', controller.loginPage);
+userRouter.post('/user', controller.createUser);
+userRouter.get('/user', controller.getUserInfo);
 
-router.post('/user', controller.signupUser);
-router.get('/user', controller.getUserInfo);
+userRouter.post('/login', controller.loginUser);
+userRouter.get('/logout', controller.logoutUser);
 
-router.post('/login', controller.loginUser);
-router.get('/logout', controller.logoutUser);
-
-export default router;
+export default userRouter;

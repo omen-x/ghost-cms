@@ -5,7 +5,7 @@ import { logger } from '../../utils/logger';
 import { UserModel, User } from './model';
 
 
-const signupUser = (req: Request, res: Response, next: NextFunction): void => {
+const createUser = (req: Request, res: Response, next: NextFunction): void => {
   const user = new User(req.body);
 
   user.save((err) => {
@@ -53,15 +53,10 @@ const logoutUser = (req: Request, res: Response): void => {
   res.redirect('/login');
 };
 
-const loginPage = (req: Request, res: Response): void => {
-  if (req.isAuthenticated()) res.redirect('/');
-  else res.sendFile('login.html', { root: './build/public' });
-};
 
 export default {
-  signupUser,
+  createUser,
   loginUser,
   logoutUser,
-  loginPage,
   getUserInfo,
 };
