@@ -1,16 +1,14 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
-import { fetchAndStoreCategories as fetchAndStoreCategoriesAction } from '../../services/inventory/thunks';
+import { useDispatch } from 'react-redux';
+import { fetchAndStoreCategories } from '../../services/inventory/thunks';
 import { CategoriesWrap } from './styled';
 
 
-interface Props {
-  fetchAndStoreCategories: () => void;
-}
+const Categories = (): JSX.Element => {
+  const dispatch = useDispatch();
 
-const Categories = ({ fetchAndStoreCategories }: Props): JSX.Element => {
   useEffect(() => {
-    fetchAndStoreCategories();
+    dispatch(fetchAndStoreCategories());
   }, []);
 
   return (
@@ -20,8 +18,5 @@ const Categories = ({ fetchAndStoreCategories }: Props): JSX.Element => {
   );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-  fetchAndStoreCategories: () => dispatch(fetchAndStoreCategoriesAction()),
-});
 
-export default connect(null, mapDispatchToProps)(Categories);
+export default Categories;

@@ -1,18 +1,13 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { AppState } from '../../app/reducer';
+import { useSelector } from 'react-redux';
 import { currentPageCategorySelector } from '../../services/navigation/selectors';
 import CategoriesPage from './CategoriesPage';
 import ProductsPage from './ProductsPage';
 
 
-interface Props {
-  currentPageCategory: string;
-}
-
-
-const InventoryPage = ({ currentPageCategory }: Props): JSX.Element => {
+const InventoryPage = (): JSX.Element => {
   let component;
+  const currentPageCategory = useSelector(currentPageCategorySelector);
 
   switch (currentPageCategory) {
     case 'products':
@@ -26,8 +21,5 @@ const InventoryPage = ({ currentPageCategory }: Props): JSX.Element => {
   return component;
 };
 
-const mapStateToProps = (state: AppState) => ({
-  currentPageCategory: currentPageCategorySelector(state),
-});
 
-export default connect(mapStateToProps)(InventoryPage);
+export default InventoryPage;
