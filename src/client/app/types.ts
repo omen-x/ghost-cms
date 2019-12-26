@@ -6,7 +6,7 @@ import { NavigationActionMap } from '../services/navigation/types';
 type ActionType<ActionMap> = keyof ActionMap;
 
 
-type ActionMap =
+export type ActionMap =
   InventoryActionMap &
   NavigationActionMap;
 
@@ -27,7 +27,7 @@ interface ActionObject<ActionMap, Type extends ActionType<ActionMap>> extends Re
 
 
 // Union type for all actions
-type Action<ActionMap> = {
+export type Action<ActionMap> = {
   [T in ActionType<ActionMap>]: ActionObject<ActionMap, T>
 }[ActionType<ActionMap>];
 

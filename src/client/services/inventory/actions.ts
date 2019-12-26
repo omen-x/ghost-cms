@@ -5,4 +5,4 @@ import { InventoryActionMap } from './types';
 const creator = actionCreator<InventoryActionMap>();
 
 
-export const setProductsCategories = creator.createAction('SET_PRODUCTS_CATEGORIES');
+export const storeProductsCategories = creator.createAction('SET_PRODUCTS_CATEGORIES');

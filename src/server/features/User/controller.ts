@@ -12,7 +12,7 @@ const createUser = (req: Request, res: Response, next: NextFunction): void => {
     if (err) {
       if (err.code === 11000) {
         const message = 'User already exists';
-        return next(new CommonError({ message, clientMessage: message }));
+        return next(new CommonError({ message, uiMessage: message }));
       }
 
       return next(err);
@@ -29,7 +29,7 @@ const loginUser = (req: Request, res: Response, next: NextFunction): void => {
     if (!user) {
       return next(new CommonError({
         message: 'User not found',
-        clientMessage: 'User not found',
+        uiMessage: 'User not found',
       }));
     }
 

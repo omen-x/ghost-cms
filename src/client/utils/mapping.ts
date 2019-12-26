@@ -7,7 +7,7 @@ export interface SidebarCategory {
   icon: IconName;
 }
 
-// Sub-categories for each page(inventory,dashboard, etc)
+// Sub-categories for each page
 export const categoriesMapping: { [index: string]: SidebarCategory[] } = {
   dashboard: [
     { name: 'logs', path: 'logs', icon: 'list-columns' },

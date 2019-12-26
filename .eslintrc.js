@@ -1,6 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'import', 'security', 'react'],
+  plugins: ['@typescript-eslint', 'import', 'security', 'react', 'react-hooks'],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module'
@@ -31,6 +31,7 @@ module.exports = {
     }],
     'no-underscore-dangle': 0,
     'max-len': 0,
+    'implicit-arrow-linebreak': 0,
     // JSX
     'jsx-a11y/label-has-associated-control': 0,
     'jsx-a11y/label-has-for': 0,
