@@ -1,16 +1,19 @@
 import mongoose from 'mongoose';
 
 
-interface ProductCategoryBase {
+export interface ProductCategory {
   name: string;
   parentId?: mongoose.Schema.Types.ObjectId;
-  children: ProductCategoryBase[];
-}
-
-// Front-End usage
-export interface ProductCategory extends Omit<ProductCategoryBase, 'children'> {
-  readonly _id: string;
   children: ProductCategory[];
 }
 
-export interface ProductCategoryModel extends ProductCategoryBase, mongoose.Document {}
+export interface ProductCategoryResponse extends Omit<ProductCategory, 'children'> {
+  readonly _id: string;
+  children: ProductCategoryResponse[];
+}
+
+export type ProductCategoryPayload = Omit<ProductCategory, 'children' | 'parentId'> & {
+  parentId?: string;
+};
+
+export interface ProductCategoryModel extends ProductCategory, mongoose.Document {}

@@ -13,6 +13,10 @@ const reducerCases: ReducerCases<InventoryState, InventoryActionMap> = {
     ...state,
     categories: payload,
   }),
+  DELETE_CATEGORY: (state, payload) => ({
+    ...state,
+    categories: state.categories.filter((cat) => cat._id !== payload),
+  }),
   SET_PRODUCTS: (state, payload) => ({
     ...state,
     products: payload,

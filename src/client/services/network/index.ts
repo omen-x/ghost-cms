@@ -4,7 +4,7 @@ import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
 const DEFAULT_ERR_MSG = 'Something went wrong';
 
 
-function get<Data>(url: string): Promise<AxiosResponse<Data>> {
+function get<ResType>(url: string): Promise<AxiosResponse<ResType>> {
   return axios.get(url)
     .then((res) => res)
     .catch(() => {
@@ -12,7 +12,7 @@ function get<Data>(url: string): Promise<AxiosResponse<Data>> {
     });
 }
 
-function post<Data, Payload>(url: string, payload: Payload): Promise<AxiosResponse<Data>> {
+function post<Payload, Response>(url: string, payload?: Payload): Promise<AxiosResponse<Response>> {
   const config: AxiosRequestConfig = {
     method: 'POST',
     url,
@@ -27,9 +27,24 @@ function post<Data, Payload>(url: string, payload: Payload): Promise<AxiosRespon
 }
 
 
+function del<Payload, Response>(url: string, payload?: Payload): Promise<AxiosResponse<Response>> {
+  const config: AxiosRequestConfig = {
+    method: 'DELETE',
+    url,
+    data: payload,
+  };
+
+  return axios(config)
+    .then((res) => res)
+    .catch(() => {
+      throw new Error(DEFAULT_ERR_MSG);
+    });
+}
+
 const http = {
   get,
   post,
+  delete: del,
 };
 
 export default http;
