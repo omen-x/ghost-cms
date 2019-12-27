@@ -1,32 +1,24 @@
-import mongoose, { Model } from 'mongoose';
+import mongoose, { Model, Schema } from 'mongoose';
 import { CommonError } from '../../../utils/errors';
 import { logger } from '../../../utils/logger';
+import { ProductCategoryModel } from './types';
 
 
-// TODO: extract types in to separate file
-export interface ProductCategory {
-  name: string;
-  parentId?: mongoose.Schema.Types.ObjectId;
-  childrens: ProductCategory[];
-}
-
-export interface ProductCategoryModel extends ProductCategory, mongoose.Document {}
-
-const schema = new mongoose.Schema({
+const schema = new Schema({
   name: {
     type: String,
     required: true,
   },
   parentId: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: Schema.Types.ObjectId,
   },
-  childrens: {
-    type: [{ type: mongoose.Schema.Types.ObjectId }],
+  children: {
+    type: [{ type: Schema.Types.ObjectId }],
   },
 });
 
 
-schema.pre('save', async function pre(next): Promise<void> {
+schema.pre('save', async function pre(next) {
   const parentId = this.get('parentId');
   const name = this.get('name');
 
@@ -75,7 +67,7 @@ schema.post('save', (doc) => {
         { _id: doc.get('parentId') },
         {
           $push: {
-            childrens: doc.id,
+            children: doc.id,
           },
         },
       )

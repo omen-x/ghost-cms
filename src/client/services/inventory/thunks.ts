@@ -1,7 +1,7 @@
 import { AppThunk } from '../../app/utils';
 import http from '../network';
 import { storeProductsCategories } from './actions';
-import { ProductCategory } from '../../../server/features/Inventory/Category/model';
+import { ProductCategory } from '../../../server/features/Inventory/Category/types';
 
 
 export const fetchAndStoreCategories = (): AppThunk => (dispatch): Promise<void> =>

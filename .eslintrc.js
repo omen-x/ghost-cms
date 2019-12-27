@@ -35,6 +35,7 @@ module.exports = {
     // JSX
     'jsx-a11y/label-has-associated-control': 0,
     'jsx-a11y/label-has-for': 0,
+    'react/jsx-props-no-spreading': 0,
     // Typescript
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/ban-ts-ignore': 0,

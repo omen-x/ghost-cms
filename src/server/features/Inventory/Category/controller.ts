@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from 'express';
-import { ProductCategory } from './model';
 import { CommonError } from '../../../utils/errors';
+import { ProductCategory } from './model';
 
 
 const createProductCategory = (req: Request, res: Response, next: NextFunction): void => {
@@ -20,8 +20,8 @@ const getAllCategories = (req: Request, res: Response, next: NextFunction): void
   ProductCategory
     .find({})
     .populate({
-      path: 'childrens',
-      populate: { path: 'childrens' },
+      path: 'children',
+      populate: { path: 'children' },
     })
     .then((categories) => {
       res.json(categories.filter((cat) => !cat.parentId));
@@ -38,7 +38,6 @@ const deleteCategory = (req: Request, res: Response, next: NextFunction): void =
 
   ProductCategory.findByIdAndDelete(categoryId)
     .then((category) => {
-    // TOOD: galobal not found handler
       if (!category) return next(new CommonError({ message: 'Category no found' }));
 
       res.json(category.toObject());

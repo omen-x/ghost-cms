@@ -1,6 +1,6 @@
 {
   "verbose": false,
   "watch": ["src/server", "index.ts"],
-  "exec": "TS_NODE_PROJECT=\"src/server/tsconfig.json\" node -r ts-node/register --inspect src/server/index.ts",
+  "exec": "node -r ts-node/register --inspect src/server/index.ts",
   "ext": "ts"
 }

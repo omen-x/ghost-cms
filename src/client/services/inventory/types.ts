@@ -1,4 +1,4 @@
-import { ProductCategory } from '../../../server/features/Inventory/Category/model';
+import { ProductCategory } from '../../../server/features/Inventory/Category/types';
 import { ProductModel } from '../../../server/features/Inventory/Product/model';
 
 
