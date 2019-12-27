@@ -51,9 +51,9 @@ export function createReducer<State, ActionMap>(
   };
 }
 
-export function actionCreator<ActionMap>() {
+export function actionCreator<ActionMap>(): ReturnType<typeof createAction> {
   return {
-    createAction<Type extends ActionType<ActionMap>>(type: Type) {
+    createAction<Type extends ActionType<ActionMap>>(type: Type): ReturnType<typeof createAction> {
       return createAction<ActionMap, Type>(type);
     },
   };

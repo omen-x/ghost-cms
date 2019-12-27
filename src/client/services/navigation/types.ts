@@ -1,5 +1,5 @@
 export interface NavigationState {
-  currentPageCategory: string;
+  readonly currentPageCategory: string;
 }
 
 export type NavigationActionMap = {

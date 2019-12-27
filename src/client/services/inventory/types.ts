@@ -3,8 +3,8 @@ import { ProductModel } from '../../../server/features/Inventory/Product/model';
 
 
 export interface InventoryState {
-  categories: ProductCategoryResponse[];
-  products: ProductModel[];
+  readonly categories: ProductCategoryResponse[];
+  readonly products: ProductModel[];
 }
 
 export type InventoryActionMap = {

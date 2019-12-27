@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ProductCategoryPayload, ProductCategoryResponse } from '../../../server/features/Inventory/Category/types';
 import { productCategoriesSelector } from '../../services/inventory/selectors';
 import { fetchAndStoreCategories, issueAddCategory, issueDeleteCategory } from '../../services/inventory/thunks';
+import { withLoader } from '../../services/network/thunks';
 import { AddCategoryBtn, CategoriesWrap, CategoryBtnWrap, EditButtonsWrap, InnerPanel, PanelWrap, PopoverForm } from './styled';
 
 
@@ -59,7 +60,7 @@ interface EditButtonsProps {
 const EditButtons: React.FunctionComponent<EditButtonsProps> = ({ categoryId, emptyCategory }: EditButtonsProps) => {
   const dispatch = useDispatch();
   const deleteCategory = (): void => {
-    dispatch(issueDeleteCategory(categoryId));
+    dispatch(withLoader(issueDeleteCategory(categoryId)));
   };
 
   return (
@@ -127,7 +128,7 @@ const Categories: React.ElementType = () => {
   };
 
   useEffect(() => {
-    dispatch(fetchAndStoreCategories());
+    dispatch(withLoader(fetchAndStoreCategories()));
   }, []);
   if (!categories.length) return <div />;
 
