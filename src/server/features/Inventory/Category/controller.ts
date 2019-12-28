@@ -16,7 +16,7 @@ const createProductCategory = (req: Request, res: Response, next: NextFunction):
 /**
  * Returns categories tree
  * TODO:
- * - sort by 'children' field
+ * - sort by 'children'
  */
 const getAllCategories = (req: Request, res: Response, next: NextFunction): void => {
   ProductCategory

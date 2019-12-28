@@ -1,14 +1,11 @@
-import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';
-
-
-const DEFAULT_ERR_MSG = 'Something went wrong';
+import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 
 function get<ResType>(url: string): Promise<AxiosResponse<ResType>> {
   return axios.get(url)
     .then((res) => res)
-    .catch(() => {
-      throw new Error(DEFAULT_ERR_MSG);
+    .catch((err) => {
+      throw err;
     });
 }
 
@@ -21,23 +18,22 @@ function post<Payload, Response>(url: string, payload?: Payload): Promise<AxiosR
 
   return axios(config)
     .then((res) => res)
-    .catch(() => {
-      throw new Error(DEFAULT_ERR_MSG);
+    .catch((err) => {
+      throw err;
     });
 }
 
 
-function del<Payload, Response>(url: string, payload?: Payload): Promise<AxiosResponse<Response>> {
+function del<Response>(url: string): Promise<AxiosResponse<Response>> {
   const config: AxiosRequestConfig = {
     method: 'DELETE',
     url,
-    data: payload,
   };
 
   return axios(config)
     .then((res) => res)
-    .catch(() => {
-      throw new Error(DEFAULT_ERR_MSG);
+    .catch((err) => {
+      throw err;
     });
 }
 

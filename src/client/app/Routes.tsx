@@ -1,10 +1,10 @@
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import Header from '../components/Header/Header';
+import Sidebar from '../components/Sidebar/Sidebar';
+import { BodyWrap, PageWrap } from '../components/Utils/Content';
 import Dashboard from '../pages/Dashboard/DashboardPage';
 import Inventory from '../pages/Inventory/InventoryPage';
-import { PageWrap, BodyWrap } from '../components/Utils/Content';
-import Sidebar from '../components/Sidebar/Sidebar';
 import NotFound from '../pages/NotFound/NotFound';
 
 

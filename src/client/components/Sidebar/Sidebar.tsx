@@ -9,11 +9,6 @@ import { categoriesMapping, SidebarCategory } from '../../utils/mapping';
 import { SidebarCat, SidebarCats, SidebarCatTitle, SidebarContent, SidebarHeader, SidebarHeaderTitle, SidebarToggle, SidebarWrap } from './styled';
 
 
-interface Props extends RouteComponentProps {
-  currentPageCategory: string;
-  setPageCategory: (s: string) => void;
-}
-
 const renderCategories = (categories: SidebarCategory[]): JSX.Element => {
   const currentPageCategory = useSelector(currentPageCategorySelector);
   const dispatch = useDispatch();
@@ -39,7 +34,7 @@ const renderCategories = (categories: SidebarCategory[]): JSX.Element => {
   );
 };
 
-const Sidebar = ({ location }: Props): JSX.Element => {
+const Sidebar = ({ location }: RouteComponentProps): JSX.Element => {
   const currentPage = mapPathToPage(location.pathname);
   const categories = categoriesMapping[currentPage];
 

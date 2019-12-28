@@ -1,6 +1,7 @@
 import { Action as ReduxAction } from 'redux';
 import { InventoryActionMap } from '../services/inventory/types';
 import { NavigationActionMap } from '../services/navigation/types';
+import { NetworkActionMap } from '../services/network/types';
 
 
 type ActionType<ActionMap> = keyof ActionMap;
@@ -8,7 +9,8 @@ type ActionType<ActionMap> = keyof ActionMap;
 
 export type ActionMap =
   InventoryActionMap &
-  NavigationActionMap;
+  NavigationActionMap &
+  NetworkActionMap;
 
 
 type ActionPayload<ActionMap, Type extends ActionType<ActionMap>> = ActionMap[Type];
@@ -51,7 +53,7 @@ export function createReducer<State, ActionMap>(
   };
 }
 
-export function actionCreator<ActionMap>(): ReturnType<typeof createAction> {
+export function actionCreator<ActionMap>() {
   return {
     createAction<Type extends ActionType<ActionMap>>(type: Type): ReturnType<typeof createAction> {
       return createAction<ActionMap, Type>(type);

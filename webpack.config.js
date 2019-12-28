@@ -1,12 +1,13 @@
 const path = require('path');
+const { DefinePlugin } = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const ImageMin = require('imagemin-webpack-plugin').default;
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin');
-const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const CopyPlugin = require('copy-webpack-plugin');
+// const BundleAnalyzer = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const CopyPlugin = require('copy-webpack-plugin');
 
 const webpackConfig = (env, argv) => {
   const isDev = argv && argv.mode === 'development';
@@ -74,6 +75,9 @@ const webpackConfig = (env, argv) => {
       ],
     },
     plugins: [
+      new DefinePlugin({
+        DEVELOPMENT: isDev,
+      }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         template: 'src/client/assets/index.html',
@@ -93,7 +97,7 @@ const webpackConfig = (env, argv) => {
         canPrint: true,
       }),
       // new CopyPlugin([
-        // { from: 'public', to: '../public' },
+      // { from: 'public', to: '../public' },
       // ]),
       new ImageMin({
         disable: isDev,

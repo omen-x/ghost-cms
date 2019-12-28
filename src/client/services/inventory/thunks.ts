@@ -11,12 +11,10 @@ export const fetchAndStoreCategories = (): AppThunk => (dispatch): Promise<void>
     });
 
 export const issueDeleteCategory = (categoryId: string): AppThunk => (dispatch): Promise<void> =>
-  http.delete<ProductCategoryResponse, null>(`/api/inventory/category/${categoryId}`)
+  http.delete<ProductCategoryResponse>(`/api/inventory/category/${categoryId}`)
     .then(() => {
       dispatch(deleteCategory(categoryId));
     });
-// TODO:
-// .catch()
 
 export const issueAddCategory = (payload: ProductCategoryPayload): ReturnType<typeof http.post> =>
   http.post<ProductCategoryPayload, ProductCategoryResponse>('/api/inventory/category', payload);

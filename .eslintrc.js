@@ -32,6 +32,7 @@ module.exports = {
     'no-underscore-dangle': 0,
     'max-len': 0,
     'implicit-arrow-linebreak': 0,
+    'no-plusplus': 0,
     // JSX
     'jsx-a11y/label-has-associated-control': 0,
     'jsx-a11y/label-has-for': 0,
@@ -39,5 +40,6 @@ module.exports = {
     // Typescript
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/ban-ts-ignore': 0,
+    '@typescript-eslint/no-empty-interface': 0,
   }
 };
