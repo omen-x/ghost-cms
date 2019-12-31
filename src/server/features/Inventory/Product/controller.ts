@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { Product } from './model';
 import { CommonError } from '../../../utils/errors';
+import { ResponseBuilder } from '../../../utils/responseBuilder';
 
 
 const createProduct = (req: Request, res: Response, next: NextFunction): void => {
@@ -9,7 +10,7 @@ const createProduct = (req: Request, res: Response, next: NextFunction): void =>
   product.save((err, doc) => {
     if (err) return next(err);
 
-    res.json(doc.toObject());
+    res.json(new ResponseBuilder(doc.toObject()));
   });
 };
 
@@ -23,7 +24,7 @@ const getProductById = (req: Request, res: Response, next: NextFunction): void =
     .then((product) => {
       if (!product) return next(new CommonError({ status: 404, message: 'Product not found' }));
 
-      res.json(product.toObject());
+      res.json(new ResponseBuilder(product.toObject()));
     })
     .catch(next);
 };
@@ -35,7 +36,7 @@ const deleteProduct = (req: Request, res: Response, next: NextFunction): void =>
     .then((product) => {
       if (!product) return next(new CommonError({ status: 404, message: 'Product no found' }));
 
-      res.json(product.toObject());
+      res.json(new ResponseBuilder(product.toObject()));
     })
     .catch(next);
 };
@@ -52,12 +53,11 @@ const getProducts = (req: Request, res: Response, next: NextFunction): void => {
   delete filter.page;
   delete filter.sortBy;
 
-  // pages count
   Product.find(filter)
     .skip(pageLimit * (page - 1))
     .limit(pageLimit)
     .then((products) => {
-      res.json(products);
+      res.json(new ResponseBuilder(products, { pages: 10 }));
     })
     .catch(next);
 };
@@ -68,7 +68,7 @@ const getProductsByCategory = (req: Request, res: Response, next: NextFunction):
   Product.find({ category }, (err, products) => {
     if (err) return next(err);
 
-    res.json(products);
+    res.json(new ResponseBuilder(products));
   });
 };
 

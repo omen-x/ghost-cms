@@ -3,7 +3,7 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 function get<ResType>(url: string): Promise<AxiosResponse<ResType>> {
   return axios.get(url)
-    .then((res) => res)
+    .then((res) => res.data)
     .catch((err) => {
       throw err;
     });
@@ -17,7 +17,7 @@ function post<Payload, Response>(url: string, payload?: Payload): Promise<AxiosR
   };
 
   return axios(config)
-    .then((res) => res)
+    .then((res) => res.data)
     .catch((err) => {
       throw err;
     });
@@ -31,7 +31,7 @@ function del<Response>(url: string): Promise<AxiosResponse<Response>> {
   };
 
   return axios(config)
-    .then((res) => res)
+    .then((res) => res.data)
     .catch((err) => {
       throw err;
     });

@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { ResponseBuilder } from './responseBuilder';
 
 const { logger } = require('./logger');
 
@@ -34,8 +35,8 @@ export function errorHandler(
 
   return res
     .status(err.status || 500)
-    .json({
+    .json(new ResponseBuilder(null, null, {
       message: err.message || 'Internal Server Error',
       clientMessage: err.clientMessage || 'Something Went Wrong',
-    });
+    }));
 }

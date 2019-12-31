@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from 'express';
 import { CommonError } from '../../../utils/errors';
 import { ProductCategory } from './model';
 import { ProductCategory as IProductCategory } from './types';
+import { ResponseBuilder } from '../../../utils/responseBuilder';
 
 
 const createProductCategory = (req: Request, res: Response, next: NextFunction): void => {
@@ -10,7 +11,7 @@ const createProductCategory = (req: Request, res: Response, next: NextFunction):
   newCategory.save((err, doc) => {
     if (err) return next(err);
 
-    res.json(doc.toObject());
+    res.json(new ResponseBuilder(doc.toObject()));
   });
 };
 
@@ -40,7 +41,9 @@ const getAllCategories = (req: Request, res: Response, next: NextFunction): void
       return categories;
     })
     .then((categories) => {
-      res.json(categories.filter((cat) => !cat.parentId));
+      const filteredCategories = categories.filter((cat) => !cat.parentId);
+
+      res.json(new ResponseBuilder(filteredCategories));
     })
     .catch(next);
 };
@@ -56,7 +59,7 @@ const deleteCategory = (req: Request, res: Response, next: NextFunction): void =
     .then((category) => {
       if (!category) return next(new CommonError({ message: 'Category no found' }));
 
-      res.json(category.toObject());
+      res.json(new ResponseBuilder(category.toObject()));
     })
     .catch(next);
 };
