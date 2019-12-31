@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
 import { CommonError } from '../../../utils/errors';
 import { ProductCategory } from './model';
+import { ProductCategory as IProductCategory } from './types';
 
 
 const createProductCategory = (req: Request, res: Response, next: NextFunction): void => {
@@ -15,15 +16,28 @@ const createProductCategory = (req: Request, res: Response, next: NextFunction):
 
 /**
  * Returns categories tree
- * TODO:
- * - sort by 'children'
+ * Nesting: 3 lvls
  */
 const getAllCategories = (req: Request, res: Response, next: NextFunction): void => {
   ProductCategory
     .find({})
     .populate({
       path: 'children',
-      populate: { path: 'children' },
+      populate: { path: 'children', populate: { path: 'children' } },
+    })
+    .then((categories) => {
+      const sort = (a: IProductCategory): number => (a.children.length > 0 ? -1 : 1);
+      const sortRecursively = (arr: IProductCategory[]): void => {
+        arr.sort(sort);
+
+        arr.forEach((c) => {
+          if (c.children.length > 0) sortRecursively(c.children);
+        });
+      };
+
+      sortRecursively(categories);
+
+      return categories;
     })
     .then((categories) => {
       res.json(categories.filter((cat) => !cat.parentId));
