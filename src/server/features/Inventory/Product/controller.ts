@@ -13,23 +13,53 @@ const createProduct = (req: Request, res: Response, next: NextFunction): void =>
   });
 };
 
-const getProductByID = (req: Request, res: Response, next: NextFunction): void => {
-  const { id } = req.params;
 
-  Product.findById(id, (err, product) => {
-    if (err) return next(err);
-    if (!product) return next(new CommonError({ message: 'Product not found' }));
+const getProductById = (req: Request, res: Response, next: NextFunction): void => {
+  const { productId } = req.params;
 
-    res.json(product.toObject());
-  });
+  Product
+    .findById(productId)
+    .populate('category')
+    .then((product) => {
+      if (!product) return next(new CommonError({ status: 404, message: 'Product not found' }));
+
+      res.json(product.toObject());
+    })
+    .catch(next);
 };
 
-const getProducts = (req: Request, res: Response, next: NextFunction): void => {
-  Product.find((err, products) => {
-    if (err) return next(err);
+const deleteProduct = (req: Request, res: Response, next: NextFunction): void => {
+  const { productId } = req.params;
 
-    return res.json(products);
-  });
+  Product.findByIdAndDelete(productId)
+    .then((product) => {
+      if (!product) return next(new CommonError({ status: 404, message: 'Product no found' }));
+
+      res.json(product.toObject());
+    })
+    .catch(next);
+};
+
+
+const getProducts = (req: Request, res: Response, next: NextFunction): void => {
+  const pageLimit = 50;
+  const { query } = req;
+
+  const { page = 1 } = query;
+  if (page < 1) return next(new CommonError({ status: 400, message: 'Incorrect page number' }));
+
+  const filter = { ...query };
+  delete filter.page;
+  delete filter.sortBy;
+
+  // pages count
+  Product.find(filter)
+    .skip(pageLimit * (page - 1))
+    .limit(pageLimit)
+    .then((products) => {
+      res.json(products);
+    })
+    .catch(next);
 };
 
 const getProductsByCategory = (req: Request, res: Response, next: NextFunction): void => {
@@ -60,21 +90,9 @@ const updateProduct = (req: Request, res: Response, next: NextFunction): void =>
   );
 };
 
-const deleteProduct = (req: Request, res: Response, next: NextFunction): void => {
-  const { id } = req.params;
-
-  Product.findByIdAndDelete(id, (err, product) => {
-    if (err) return next(err);
-    if (!product) return next(new CommonError({ message: 'Product not found' }));
-
-    res.sendStatus(204);
-  });
-};
-
-
 export default {
   createProduct,
-  getProductByID,
+  getProductById,
   getProducts,
   getProductsByCategory,
   updateProduct,

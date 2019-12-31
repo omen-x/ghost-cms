@@ -1,21 +1,8 @@
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
+import { ProductModel } from './types';
 
 
-interface Product {
-  name: string;
-  description: string;
-  category: mongoose.Schema.Types.ObjectId;
-  price: number;
-  image: {
-    path: string;
-  };
-}
-
-export interface ProductModel extends Product, mongoose.Document {}
-
-// TODO:
-// - images support
-const schema = new mongoose.Schema({
+const schema = new Schema({
   name: {
     type: String,
     required: true,
@@ -25,7 +12,7 @@ const schema = new mongoose.Schema({
     required: true,
   },
   category: {
-    type: mongoose.Schema.Types.ObjectId,
+    type: mongoose.Types.ObjectId,
     ref: 'ProductCategory',
   },
   price: {
@@ -33,11 +20,18 @@ const schema = new mongoose.Schema({
     required: true,
   },
   image: {
-    path: {
-      type: String,
-      required: true,
-    },
+    type: String,
   },
+  dateCreated: {
+    type: String,
+  },
+});
+
+
+schema.pre('save', function pre(next) {
+  this.set('dateCreated', new Date().toUTCString());
+
+  next();
 });
 
 

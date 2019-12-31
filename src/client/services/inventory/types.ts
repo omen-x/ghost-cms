@@ -1,5 +1,5 @@
 import { ProductCategoryResponse } from '../../../server/features/Inventory/Category/types';
-import { ProductModel } from '../../../server/features/Inventory/Product/model';
+import { ProductModel } from '../../../server/features/Inventory/Product/types';
 
 
 export interface InventoryState {

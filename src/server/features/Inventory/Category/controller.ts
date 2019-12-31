@@ -58,9 +58,7 @@ const deleteCategory = (req: Request, res: Response, next: NextFunction): void =
 
       res.json(category.toObject());
     })
-    .catch((err) => {
-      next(err);
-    });
+    .catch(next);
 };
 
 

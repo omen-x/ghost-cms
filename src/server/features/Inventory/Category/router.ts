@@ -5,6 +5,11 @@ import controller from './controller';
 const router = express.Router();
 
 
+/**
+ * @param {object} body
+ * @param {string} body.name - Category name
+ * @param {string} [body.parentId] - Parent category id
+ */
 router.post('/inventory/category', controller.createProductCategory);
 
 router.get('/inventory/category/all', controller.getAllCategories);
