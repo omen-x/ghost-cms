@@ -45,18 +45,15 @@ const deleteProduct = (req: Request, res: Response, next: NextFunction): void =>
 const getProducts = (req: Request, res: Response, next: NextFunction): void => {
   const pageLimit = 50;
 
-  const { page = 1 } = req.query;
+  const { page = 1, filters = {}, sortBy = 'dateCreated', sortOrder = 'asc' } = req.body;
   if (page < 1) return next(new CommonError({ status: 400, message: 'Incorrect page number' }));
 
-  const filter = { ...req.query };
-  delete filter.page;
-  delete filter.sortBy;
-
-  const query = Product.find(filter)
+  const query = Product.find(filters)
     .skip(pageLimit * (page - 1))
-    .limit(pageLimit);
+    .limit(pageLimit)
+    .sort({ [sortBy]: sortOrder });
 
-  Promise.all([query.exec(), Product.countDocuments(filter)])
+  Promise.all([query.exec(), Product.countDocuments(filters)])
     .then(([products, count]) => {
       const pages = Math.ceil(count / pageLimit);
 
