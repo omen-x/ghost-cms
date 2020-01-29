@@ -44,20 +44,23 @@ const deleteProduct = (req: Request, res: Response, next: NextFunction): void =>
 
 const getProducts = (req: Request, res: Response, next: NextFunction): void => {
   const pageLimit = 50;
-  const { query } = req;
 
-  const { page = 1 } = query;
+  const { page = 1 } = req.query;
   if (page < 1) return next(new CommonError({ status: 400, message: 'Incorrect page number' }));
 
-  const filter = { ...query };
+  const filter = { ...req.query };
   delete filter.page;
   delete filter.sortBy;
 
-  Product.find(filter)
+  const query = Product.find(filter)
     .skip(pageLimit * (page - 1))
-    .limit(pageLimit)
-    .then((products) => {
-      res.json(new ResponseBuilder(products, { pages: 10 }));
+    .limit(pageLimit);
+
+  Promise.all([query.exec(), Product.countDocuments(filter)])
+    .then(([products, count]) => {
+      const pages = Math.ceil(count / pageLimit);
+
+      res.json(new ResponseBuilder(products, { pages }));
     })
     .catch(next);
 };
@@ -75,12 +78,14 @@ const getProductsByCategory = (req: Request, res: Response, next: NextFunction):
 // TODO:
 // - categoryID should be validated
 const updateProduct = (req: Request, res: Response, next: NextFunction): void => {
-  const { _id } = req.body;
+  const { productId: _id } = req.params;
+  const conditions = { _id };
+  const options = { new: true, runValidators: true };
 
   Product.findOneAndUpdate(
-    { _id },
+    conditions,
     req.body,
-    { new: true, runValidators: true },
+    options,
     (err, product): void => {
       if (err) return next(err);
       if (!product) return next(new CommonError({ message: 'Product not found' }));
