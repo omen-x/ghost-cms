@@ -1,10 +1,11 @@
 import { Icon } from '@blueprintjs/core';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { colors } from '../../utils/constants';
 
 
 interface ActiveProp {
-  active?: boolean;
+  active?: string;
 }
 
 export const SidebarWrap = styled.div<ActiveProp>`
@@ -46,7 +47,7 @@ export const SidebarToggle = styled(Icon)`
 
 export const SidebarCats = styled.div``;
 
-export const SidebarCat = styled.div<ActiveProp>`
+export const SidebarCat = styled(Link)<ActiveProp>`
   display: flex;
   align-items: center;
   padding: 15px 20px;
@@ -54,6 +55,10 @@ export const SidebarCat = styled.div<ActiveProp>`
   transition: background .2s;
   cursor: pointer;
   color: #ffffff;
+
+  &:hover {
+    color: #ffffff;
+  }
 
   &:last-child {
     border-bottom: 1px solid ${colors.accent};

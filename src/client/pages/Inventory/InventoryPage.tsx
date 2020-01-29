@@ -1,24 +1,18 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { currentPageCategorySelector } from '../../services/navigation/selectors';
+import { Route, Switch, useRouteMatch } from 'react-router-dom';
 import CategoriesPage from './CategoriesPage';
 import ProductsPage from './ProductsPage';
 
 
 const InventoryPage = (): JSX.Element => {
-  let component;
-  const currentPageCategory = useSelector(currentPageCategorySelector);
+  const { path } = useRouteMatch();
 
-  switch (currentPageCategory) {
-    case 'products':
-      component = <ProductsPage />;
-      break;
-    case 'categories':
-    default:
-      component = <CategoriesPage />;
-  }
-
-  return component;
+  return (
+    <Switch>
+      <Route path={`${path}/categories`} component={CategoriesPage} />
+      <Route path={`${path}/products`} component={ProductsPage} />
+    </Switch>
+  );
 };
 
 

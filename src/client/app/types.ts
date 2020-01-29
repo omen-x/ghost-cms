@@ -1,6 +1,5 @@
 import { Action as ReduxAction } from 'redux';
 import { InventoryActionMap } from '../services/inventory/types';
-import { NavigationActionMap } from '../services/navigation/types';
 import { NetworkActionMap } from '../services/network/types';
 
 
@@ -9,7 +8,6 @@ type ActionType<ActionMap> = keyof ActionMap;
 
 export type ActionMap =
   InventoryActionMap &
-  NavigationActionMap &
   NetworkActionMap;
 
 
