@@ -6,8 +6,15 @@ interface Product {
   description: string;
   category: Types.ObjectId;
   price: number;
-  image?: string;
   dateCreated: string;
+}
+
+export interface ProductResponse extends Product {
+  readonly _id: string;
+}
+
+export interface ProductMetaResponse {
+  pages: number;
 }
 
 export interface ProductModel extends Product, Document {}

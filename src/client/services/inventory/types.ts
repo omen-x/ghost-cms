@@ -1,14 +1,14 @@
 import { ProductCategoryResponse } from '../../../server/features/Inventory/Category/types';
-import { ProductModel } from '../../../server/features/Inventory/Product/types';
+import { ProductResponse } from '../../../server/features/Inventory/Product/types';
 
 
 export interface InventoryState {
   readonly categories: ProductCategoryResponse[];
-  readonly products: ProductModel[];
+  readonly products: ProductResponse[];
 }
 
 export type InventoryActionMap = {
   SET_PRODUCTS_CATEGORIES: ProductCategoryResponse[];
-  SET_PRODUCTS: ProductModel[];
+  SET_PRODUCTS: ProductResponse[];
   DELETE_CATEGORY: string;
 };

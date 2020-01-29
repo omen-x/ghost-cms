@@ -1,7 +1,9 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
+import { CommonError } from '../../../server/utils/errors';
+import { Response } from '../../../server/utils/responseBuilder';
 
 
-function get<ResType>(url: string): Promise<AxiosResponse<ResType>> {
+function get<Data, Meta>(url: string): Promise<Response<Data, Meta, CommonError>> {
   return axios.get(url)
     .then((res) => res.data)
     .catch((err) => {
@@ -9,7 +11,7 @@ function get<ResType>(url: string): Promise<AxiosResponse<ResType>> {
     });
 }
 
-function post<Payload, Response>(url: string, payload?: Payload): Promise<AxiosResponse<Response>> {
+function post<Payload, Data>(url: string, payload?: Payload): Promise<Response<Data, {}, CommonError>> {
   const config: AxiosRequestConfig = {
     method: 'POST',
     url,
@@ -24,7 +26,7 @@ function post<Payload, Response>(url: string, payload?: Payload): Promise<AxiosR
 }
 
 
-function del<Response>(url: string): Promise<AxiosResponse<Response>> {
+function del<Data>(url: string): Promise<Response<Data, {}, CommonError>> {
   const config: AxiosRequestConfig = {
     method: 'DELETE',
     url,

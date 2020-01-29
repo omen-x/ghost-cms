@@ -19,9 +19,6 @@ const schema = new Schema({
     type: Number,
     required: true,
   },
-  image: {
-    type: String,
-  },
   dateCreated: {
     type: String,
   },

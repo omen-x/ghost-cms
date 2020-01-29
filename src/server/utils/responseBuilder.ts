@@ -1,3 +1,10 @@
+export interface Response<D, M, E> {
+  data?: D;
+  meta?: M;
+  error?: E;
+}
+
+
 export class ResponseBuilder {
   data: any;
   meta: object | undefined | null;

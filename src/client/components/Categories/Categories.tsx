@@ -1,9 +1,9 @@
 import { Button, Classes, IButtonProps, IPanelProps, Popover } from '@blueprintjs/core';
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { ProductCategoryPayload, ProductCategoryResponse } from '../../../server/features/Inventory/Category/types';
 import { productCategoriesSelector } from '../../services/inventory/selectors';
-import { fetchAndStoreCategories, issueAddCategory, issueDeleteCategory } from '../../services/inventory/thunks';
+import { issueAddCategory, issueDeleteCategory } from '../../services/inventory/thunks';
 import { withLoader } from '../../services/network/thunks';
 import { AddCategoryBtn, CategoriesWrap, CategoryBtnWrap, EditButtonsWrap, InnerPanel, PanelWrap, PopoverForm } from './styled';
 
@@ -116,7 +116,6 @@ class Category extends React.PureComponent<IPanelProps & PanelProps> {
 
 const Categories: React.ElementType = () => {
   const categories = useSelector(productCategoriesSelector);
-  const dispatch = useDispatch();
 
   const initialPanel = {
     component: Category,
@@ -127,9 +126,6 @@ const Categories: React.ElementType = () => {
     title: 'Main Categories',
   };
 
-  useEffect(() => {
-    dispatch(withLoader(fetchAndStoreCategories()));
-  }, []);
   if (!categories.length) return <div />;
 
   return (
