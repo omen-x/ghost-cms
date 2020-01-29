@@ -44,12 +44,13 @@ const deleteProduct = (req: Request, res: Response, next: NextFunction): void =>
 
 const getProducts = (req: Request, res: Response, next: NextFunction): void => {
   const pageLimit = 50;
+  const { page = 1, sortBy = 'dateCreated', sortOrder = 'asc', ...filters } = req.query;
+  const queryPage = Number(page);
 
-  const { page = 1, filters = {}, sortBy = 'dateCreated', sortOrder = 'asc' } = req.body;
-  if (page < 1) return next(new CommonError({ status: 400, message: 'Incorrect page number' }));
+  if (queryPage < 1) return next(new CommonError({ status: 400, message: 'Incorrect page number' }));
 
   const query = Product.find(filters)
-    .skip(pageLimit * (page - 1))
+    .skip(pageLimit * (queryPage - 1))
     .limit(pageLimit)
     .sort({ [sortBy]: sortOrder });
 
@@ -72,8 +73,6 @@ const getProductsByCategory = (req: Request, res: Response, next: NextFunction):
   });
 };
 
-// TODO:
-// - categoryID should be validated
 const updateProduct = (req: Request, res: Response, next: NextFunction): void => {
   const { productId: _id } = req.params;
   const conditions = { _id };
