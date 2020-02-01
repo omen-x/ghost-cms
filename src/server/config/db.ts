@@ -1,5 +1,9 @@
+import fs from 'fs';
+import parse from 'csv-parse';
 import mongoose from 'mongoose';
 import { logger } from '../utils/logger';
+import { ProductPayload } from '../features/Inventory/Product/types';
+import { Product } from '../features/Inventory/Product/model';
 
 
 const initDB = (): void => {
@@ -19,6 +23,46 @@ const initDB = (): void => {
   });
 
   mongoose.set('useCreateIndex', true);
+};
+
+export const storeMockProducts = (): void => {
+  const products: ProductPayload[] = [];
+
+  fs.createReadStream('data/products.csv')
+    .pipe(parse({
+      cast(value, context) {
+        // Price
+        if (context.column === 2) {
+          return value.replace(',', '');
+        }
+        // Description
+        if (context.column === 1 && value === '') {
+          return 'No description';
+        }
+        // Name
+        if (context.column === 0) {
+          return value.replace(/\s\w*...$/, '');
+        }
+        return value;
+      },
+    }))
+    .on('data', (row) => {
+      products.push({
+        name: row[0],
+        description: row[1],
+        price: row[2],
+      });
+    })
+    .on('end', () => {
+      const uniqueProducts = products.filter((p, i) =>
+        products.slice(i + 1).findIndex((el) => el.name === p.name) === -1);
+
+      Product.insertMany(uniqueProducts)
+        .then(() => {
+          logger.debug('Mock products uploaded');
+        })
+        .catch(logger.error);
+    });
 };
 
 export default initDB;

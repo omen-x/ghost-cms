@@ -1,18 +1,17 @@
-import express from 'express';
 import * as bodyParser from 'body-parser';
-import cookieParser from 'cookie-parser';
-import redis from 'redis';
 import connectRedis from 'connect-redis';
-import session from 'express-session';
-import passport from 'passport';
+import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
+import express from 'express';
+import session from 'express-session';
 import helmet from 'helmet';
+import passport from 'passport';
+import redis from 'redis';
+import initDB from './config/db';
+import rootRouter from './config/rootRouter';
+import './middleware/auth';
 import { errorHandler } from './utils/errors';
 import { logger } from './utils/logger';
-import './middleware/auth';
-import rootRouter from './config/rootRouter';
-import initDB from './config/db';
-
 
 dotenv.config();
 
