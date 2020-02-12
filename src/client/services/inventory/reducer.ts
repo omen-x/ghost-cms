@@ -3,23 +3,39 @@ import { InventoryActionMap, InventoryState } from './types';
 
 
 const initialState: InventoryState = {
-  categories: [],
-  products: [],
+  categories: {
+    items: [],
+  },
+  products: {
+    items: [],
+    meta: {
+      pages: 1,
+    },
+  },
 };
 
 
 const reducerCases: ReducerCases<InventoryState, InventoryActionMap> = {
   SET_PRODUCTS_CATEGORIES: (state, payload) => ({
     ...state,
-    categories: payload,
+    categories: {
+      items: payload.items,
+    },
   }),
   DELETE_CATEGORY: (state, payload) => ({
     ...state,
-    categories: state.categories.filter((cat) => cat._id !== payload),
+    categories: {
+      ...state.categories,
+      items: state.categories.items.filter((cat) => cat._id !== payload),
+    },
   }),
   SET_PRODUCTS: (state, payload) => ({
     ...state,
-    products: payload,
+    products: {
+      ...state.products,
+      items: payload.items,
+      meta: payload.meta,
+    },
   }),
 };
 

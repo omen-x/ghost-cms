@@ -18,7 +18,7 @@ const ProductsPage = (): JSX.Element => {
 
   useEffect(() => {
     dispatch(withLoader(fetchAndStoreProducts()));
-  });
+  }, []);
 
   return (
     <PageContent>

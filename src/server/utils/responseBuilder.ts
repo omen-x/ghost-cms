@@ -4,7 +4,6 @@ export interface Response<D, M, E> {
   error?: E;
 }
 
-
 export class ResponseBuilder {
   data: any;
   meta: object | undefined | null;

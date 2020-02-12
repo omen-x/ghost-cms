@@ -8,7 +8,7 @@ import { ProductResponse, ProductMetaResponse } from '../../../server/features/I
 export const fetchAndStoreCategories = (): AppThunk => (dispatch) =>
   http.get<ProductCategoryResponse[], {}>('/api/inventory/category/all')
     .then((res) => {
-      dispatch(storeProductsCategories(res.data));
+      dispatch(storeProductsCategories({ items: res.data }));
     });
 
 export const issueDeleteCategory = (categoryId: string): AppThunk => (dispatch) =>
@@ -20,8 +20,9 @@ export const issueDeleteCategory = (categoryId: string): AppThunk => (dispatch) 
 export const issueAddCategory = (payload: ProductCategoryPayload): ReturnType<typeof http.post> =>
   http.post<ProductCategoryPayload, ProductCategoryResponse>('/api/inventory/category', payload);
 
+
 export const fetchAndStoreProducts = (): AppThunk => (dispatch): Promise<void> =>
   http.get<ProductResponse[], ProductMetaResponse>(`/api/inventory/product${window.location.search}`)
     .then((res) => {
-      dispatch(storeProducts(res.data));
+      dispatch(storeProducts({ items: res.data, meta: res.meta }));
     });

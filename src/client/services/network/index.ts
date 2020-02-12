@@ -25,7 +25,6 @@ function post<Payload, Data>(url: string, payload?: Payload): Promise<Response<D
     });
 }
 
-
 function del<Data>(url: string): Promise<Response<Data, {}, CommonError>> {
   const config: AxiosRequestConfig = {
     method: 'DELETE',
