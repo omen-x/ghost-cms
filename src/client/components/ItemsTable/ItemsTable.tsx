@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { TableCell, TableRow, TableWrap } from './styled';
+import { fixateElementHeight } from '../../utils';
 
 
 interface ItemsTableProps {
@@ -7,23 +8,29 @@ interface ItemsTableProps {
   rows?: (string | number)[][];
 }
 
-function ItemsTable<T>({ headers, rows = [] }: ItemsTableProps): JSX.Element {
+const ItemsTable = ({ headers, rows = [] }: ItemsTableProps): JSX.Element => {
+  useEffect(() => {
+    fixateElementHeight('items-table');
+  });
+
   return (
-    <TableWrap>
-      <thead>
-        <TableRow>
-          {headers.map((header) => <th key={header}>{header}</th>)}
-        </TableRow>
-      </thead>
-      <tbody>
-        {rows.map((row) => (
-          <TableRow key={row[0]}>
-            {row.map((cell) => <TableCell key={cell}>{cell}</TableCell>)}
+    <TableWrap id="items-table">
+      <table>
+        <thead>
+          <TableRow>
+            {headers.map((header) => <th key={header}>{header}</th>)}
           </TableRow>
-        ))}
-      </tbody>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <TableRow key={row[0]}>
+              {row.map((cell) => <TableCell key={cell}>{cell}</TableCell>)}
+            </TableRow>
+          ))}
+        </tbody>
+      </table>
     </TableWrap>
   );
-}
+};
 
 export default ItemsTable;

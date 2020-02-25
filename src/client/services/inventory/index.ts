@@ -7,5 +7,16 @@ const formatProductsData = (products: ProductResponse[]) => products.map((produc
   dateCreated: product.dateCreated ? new Date(product.dateCreated).toLocaleDateString() : 'N/A',
 }));
 
-export const getProductsRows = (products: ProductResponse[]): (string|number)[][] => formatProductsData(products)
-  .map((product, i) => [i + 1, product.name, product.price, product.dateCreated]);
+/**
+ * Compose values for a row in the table.
+ */
+export const getProductsRows = (
+  products: ProductResponse[], currentPage: string,
+): (string|number
+  )[][] => formatProductsData(products)
+  .map((product, i) => [
+    ((Number(currentPage) - 1) * 25) + i + 1, // item position
+    product.name,
+    product.price,
+    product.dateCreated,
+  ]);

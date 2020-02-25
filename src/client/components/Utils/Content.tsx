@@ -5,7 +5,7 @@ export const Content = styled.div`
   max-width: 1920px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: 20px;
+  padding-left: 35px;
   padding-right: 20px;
 `;
 
@@ -24,6 +24,6 @@ export const PageWrap = styled.main`
 `;
 
 export const PageContent = styled(Content)`
-  padding-top: 25px;
+  padding-top: 35px;
   padding-bottom: 25px;
 `;

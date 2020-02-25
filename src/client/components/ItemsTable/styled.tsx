@@ -2,15 +2,19 @@ import styled from 'styled-components';
 import { colors } from '../../utils/constants';
 
 
-export const TableWrap = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 18px;
+export const TableWrap = styled.div`
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 18px;
+  }
   
   th:first-child,
   td:first-child {
     width: 80px;
     text-align:center;
+    padding-left: 5px;
+    padding-right: 5px;
   }
   
   th {

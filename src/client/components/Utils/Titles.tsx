@@ -8,4 +8,5 @@ export const PageTitle = styled.p`
   border-bottom: 1px solid ${colors.accent_light};
   color: #29434e;
   padding: 0 0 10px;
+  margin-bottom: 40px;
 `;

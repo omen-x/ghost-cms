@@ -43,7 +43,7 @@ const deleteProduct = (req: Request, res: Response, next: NextFunction): void =>
 
 
 const getProducts = (req: Request, res: Response, next: NextFunction): void => {
-  const pageLimit = 50;
+  const pageLimit = 25;
   const { page = 1, sortBy = 'dateCreated', sortOrder = 'asc', ...filters } = req.query;
   const requiredPage = Number(page);
 
