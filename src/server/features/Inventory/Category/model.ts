@@ -41,12 +41,7 @@ schema.pre('save', async function pre(next) {
 
     // Check for duplicates (similarCategories have the same name)
     if (similarCategories && similarCategories.length !== 0) {
-      const isDuplicated = similarCategories.some((similarCategory) => {
-        if (similarCategory.get('parentId').toString() === parentId.toString()) {
-          return true;
-        }
-        return false;
-      });
+      const isDuplicated = similarCategories.some((similarCategory) => similarCategory.get('parentId').toString() === parentId.toString());
 
       if (isDuplicated) return next(new CommonError({ message: 'Duplicate category' }));
     }
@@ -71,7 +66,7 @@ schema.post('save', (doc) => {
           },
         },
       )
-      .catch(logger.errror);
+      .catch(logger.error);
   }
 });
 

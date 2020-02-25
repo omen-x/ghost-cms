@@ -6,7 +6,7 @@ interface Product {
   description: string;
   category?: Types.ObjectId;
   price: number;
-  dateCreated: string;
+  dateCreated: Date;
 }
 
 export interface ProductResponse extends Product {
