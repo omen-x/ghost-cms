@@ -6,14 +6,14 @@ const { logger } = require('./logger');
 
 // TODO: log file path
 export class CommonError extends Error {
-  private readonly $clientMessage: string;
+  private readonly $uiMessage: string;
   private readonly $status: number;
 
   public constructor(params: { message?: string; status?: number; uiMessage?: string }) {
     const { message = '', status = 500, uiMessage = '' } = params;
     super(message);
 
-    this.$clientMessage = uiMessage;
+    this.$uiMessage = uiMessage;
     this.$status = status;
   }
 
@@ -21,8 +21,8 @@ export class CommonError extends Error {
     return this.$status;
   }
 
-  public get clientMessage(): string {
-    return this.$clientMessage;
+  public get uiMessage(): string {
+    return this.$uiMessage;
   }
 }
 
@@ -37,6 +37,6 @@ export function errorHandler(
     .status(err.status || 500)
     .json(new ResponseBuilder(null, null, {
       message: err.message || 'Internal Server Error',
-      clientMessage: err.clientMessage || 'Something Went Wrong',
+      uiMessage: err.uiMessage || 'Something Went Wrong',
     }));
 }

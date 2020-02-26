@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { TableCell, TableRow, TableWrap } from './styled';
-import { fixateElementHeight } from '../../utils';
+import { fixateElementHeight } from '../../utils/dom';
 
 
 interface ItemsTableProps {

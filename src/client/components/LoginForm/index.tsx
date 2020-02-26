@@ -52,7 +52,7 @@ class LoginForm extends Component<{}, State> {
         } else {
           return response.json()
             .then((e: CommonError): void => {
-              if (e.clientMessage) this.setState({ error: e.clientMessage });
+              if (e.uiMessage) this.setState({ error: e.uiMessage });
             });
         }
       });

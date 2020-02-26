@@ -51,6 +51,7 @@ export const storeMockProducts = (): void => {
         name: row[0],
         description: row[1],
         price: row[2],
+        image: '/assets/image-placeholder.png',
       });
     })
     .on('end', () => {

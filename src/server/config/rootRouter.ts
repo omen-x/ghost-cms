@@ -2,6 +2,7 @@ import express, { Request, Response } from 'express';
 import productCategoryRouter from '../features/Inventory/Category/router';
 import productRouter from '../features/Inventory/Product/router';
 import userRouter from '../features/User/router';
+import storageRouter from '../features/Storage/router';
 
 
 const router = express.Router();
@@ -20,6 +21,7 @@ router.use(
   //
   productCategoryRouter,
   productRouter,
+  storageRouter,
 );
 
 // Login page

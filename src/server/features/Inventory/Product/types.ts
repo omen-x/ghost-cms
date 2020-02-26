@@ -6,6 +6,7 @@ interface Product {
   description: string;
   category?: Types.ObjectId;
   price: number;
+  image: string;
   dateCreated: Date;
 }
 

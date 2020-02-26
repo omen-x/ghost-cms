@@ -19,11 +19,22 @@ const schema = new Schema({
     type: Number,
     required: true,
   },
+  image: {
+    type: String,
+    required: true,
+  },
   dateCreated: {
     type: String,
   },
 });
 
+schema.pre('validate', function pre(next) {
+  if (!this.get('image')) {
+    this.set('image', '/assets/image-placeholder.png');
+  }
+
+  next();
+});
 
 schema.pre('save', function pre(next) {
   this.set('dateCreated', new Date().toUTCString());
