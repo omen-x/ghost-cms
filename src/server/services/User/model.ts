@@ -44,7 +44,7 @@ schema.pre('save', function pre(next): void {
 });
 
 /**
- * Returns an object with user informatin, excluding some fields
+ * Returns an object with user information, excluding some fields
  * @returns {object}
  */
 schema.methods.getInfo = function getInfo(): object {

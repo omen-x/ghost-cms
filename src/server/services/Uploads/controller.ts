@@ -24,7 +24,7 @@ const imageUploader = multer({
   fileFilter: (req, file, cb) => {
     if (file.mimetype === 'image/png' || file.mimetype === 'image/jpeg') cb(null, true);
     else {
-      cb(new CommonError({ uiMessage: 'Incorrect file type' }));
+      cb(new CommonError({ message: 'Incorrect file type' }));
     }
   },
   limits: {
@@ -32,13 +32,13 @@ const imageUploader = multer({
   },
 });
 
-
 const uploadImage = (req: Request, res: Response, next: NextFunction): void => {
   try {
     imageUploader.single('image')(req, res, (err) => {
       if (err) return next(err);
 
-      res.json(new ResponseBuilder({ filePath: `/${req.file.path}` }));
+      const result = new ResponseBuilder({ filePath: `/${req.file.path}` });
+      res.json(result);
     });
   } catch (err) {
     next(err);

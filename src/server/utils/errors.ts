@@ -4,7 +4,6 @@ import { ResponseBuilder } from './responseBuilder';
 const { logger } = require('./logger');
 
 
-// TODO: log file path
 export class CommonError extends Error {
   private readonly $uiMessage: string;
   private readonly $status: number;
