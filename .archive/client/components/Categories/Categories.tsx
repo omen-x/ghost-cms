@@ -1,7 +1,7 @@
 import { Button, Classes, IButtonProps, IPanelProps, Popover } from '@blueprintjs/core';
 import React, { useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ProductCategoryPayload, ProductCategoryResponse } from '../../../server/services/Inventory/Category/types';
+import { ProductCategoryPayload, ProductCategoryResponse } from '../../../../src/server/services/Inventory/Category/types';
 import { productCategoriesSelector } from '../../services/inventory/selectors';
 import { issueAddCategory, issueDeleteCategory } from '../../services/inventory/thunks';
 import { withLoader } from '../../services/network/thunks';

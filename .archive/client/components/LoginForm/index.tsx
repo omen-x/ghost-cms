@@ -1,6 +1,6 @@
 import React, { Component, FormEvent } from 'react';
 import { FormError, LoginFormTitle, LoginFormWrap } from './styled';
-import { CommonError } from '../../../server/utils/errors';
+import { CommonError } from '../../../../src/server/utils/errors';
 
 
 interface State {

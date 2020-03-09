@@ -1,5 +1,5 @@
-import { ProductCategoryResponse } from '../../../server/services/Inventory/Category/types';
-import { ProductResponse, ProductMetaResponse } from '../../../server/services/Inventory/Product/types';
+import { ProductCategoryResponse } from '../../../../src/server/services/Inventory/Category/types';
+import { ProductResponse, ProductMetaResponse } from '../../../../src/server/services/Inventory/Product/types';
 
 
 export interface InventoryState {

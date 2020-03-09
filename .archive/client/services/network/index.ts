@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from 'axios';
-import { CommonError } from '../../../server/utils/errors';
-import { Response } from '../../../server/utils/responseBuilder';
+import { CommonError } from '../../../../src/server/utils/errors';
+import { Response } from '../../../../src/server/utils/responseBuilder';
 
 
 function get<Data, Meta>(url: string): Promise<Response<Data, Meta, CommonError>> {
