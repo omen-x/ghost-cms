@@ -1,4 +1,4 @@
-import { ProductResponse } from '../../../../src/server/services/Inventory/Product/types';
+import { ProductResponse } from '../../../../src/server/services/Products/types';
 
 
 const formatProductsData = (products: ProductResponse[]) => products.map((product) => ({

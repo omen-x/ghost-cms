@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import productRouter from '../services/Inventory/Product/router';
+import productRouter from '../services/Products/router';
 import userRouter from '../services/User/router';
 import uploadsRouter from '../services/Uploads/router';
 

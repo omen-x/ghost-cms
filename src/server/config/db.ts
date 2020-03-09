@@ -2,8 +2,8 @@ import fs from 'fs';
 import parse from 'csv-parse';
 import mongoose from 'mongoose';
 import { logger } from '../utils/logger';
-import { ProductPayload } from '../services/Inventory/Product/types';
-import { Product } from '../services/Inventory/Product/model';
+import { ProductPayload } from '../services/Products/types';
+import { Product } from '../services/Products/model';
 
 
 const initDB = (): void => {

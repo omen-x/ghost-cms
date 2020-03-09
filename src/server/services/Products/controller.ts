@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
 import { Product } from './model';
-import { CommonError } from '../../../utils/errors';
-import { ResponseBuilder } from '../../../utils/responseBuilder';
+import { CommonError } from '../../utils/errors';
+import { ResponseBuilder } from '../../utils/responseBuilder';
 
 
 const createProduct = (req: Request, res: Response, next: NextFunction): void => {
