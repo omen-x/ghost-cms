@@ -1,6 +1,0 @@
-{
-  "verbose": false,
-  "watch": ["src/server", "index.ts"],
-  "exec": "node -r ts-node/register --inspect src/server/index.ts",
-  "ext": "ts"
-}

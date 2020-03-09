@@ -3,12 +3,12 @@
   "version": "0.0.0-dev",
   "main": "src/server/index.ts",
   "scripts": {
-    "dev-server": "nodemon",
+    "dev-server": "ts-node-dev --inspect --no-notify src/server",
     "lint-server": "eslint --quiet --fix --ext .js,.ts src/server",
-    "lint": "eslint --quiet --fix --ext .js,.jsx,.ts,.tsx src/",
+    "lint": "eslint --quiet --fix --ext .js,.ts src/",
     "build-client": "npm run lint-client && tsc --noEmit && webpack --mode=production",
     "build-server": "rm -rf build/server/**/* && mkdir -p build/server && npm run lint-server && tsc --outDir build/srver/",
-    "build": "npm run build-server && npm run build-client",
+    "build": "npm run build-server",
     "start": "node build/server/index.js"
   },
   "author": "Denis Volok (denis.omen.x@gmail.com)",
@@ -60,7 +60,6 @@
     "babel-loader": "^8.0.6",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "eslint": "^6.7.2",
-    "eslint-config-airbnb": "^18.0.1",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-config-airbnb-typescript": "^6.3.1",
     "eslint-import-resolver-alias": "^1.1.2",
@@ -69,9 +68,9 @@
     "eslint-plugin-security": "^1.4.0",
     "express-list-endpoints": "^4.0.1",
     "husky": "^3.1.0",
-    "nodemon": "^2.0.2",
     "ts-loader": "^6.2.1",
     "ts-node": "^8.5.4",
+    "ts-node-dev": "^1.0.0-pre.44",
     "typescript": "^3.7.3"
   },
   "_moduleAliases": {

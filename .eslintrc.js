@@ -1,6 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'import', 'security', 'react', 'react-hooks'],
+  plugins: ['@typescript-eslint', 'import', 'security'],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module'
@@ -13,13 +13,11 @@ module.exports = {
   },
   extends: [
     'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
-    'airbnb-typescript',
+    'airbnb-typescript/base',
   ],
   env: {
     node: true,
     es6: true,
-    browser: true
   },
   rules: {
     'import/prefer-default-export': 0,
@@ -33,11 +31,6 @@ module.exports = {
     'max-len': 0,
     'implicit-arrow-linebreak': 0,
     'no-plusplus': 0,
-    // JSX
-    'jsx-a11y/label-has-associated-control': 0,
-    'jsx-a11y/label-has-for': 0,
-    'react/jsx-props-no-spreading': 0,
-    'react/no-array-index-key': 1,
     // Typescript
     '@typescript-eslint/no-var-requires': 0,
     '@typescript-eslint/ban-ts-ignore': 0,
