@@ -1,5 +1,4 @@
 import express, { Request, Response } from 'express';
-import productCategoryRouter from '../services/Inventory/Category/router';
 import productRouter from '../services/Inventory/Product/router';
 import userRouter from '../services/User/router';
 import uploadsRouter from '../services/Uploads/router';
@@ -19,7 +18,6 @@ router.use(
   '/api',
   protectRoute,
   //
-  productCategoryRouter,
   productRouter,
   uploadsRouter,
 );
