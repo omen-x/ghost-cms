@@ -1,8 +1,8 @@
 import express, { Request, Response } from 'express';
-import productCategoryRouter from '../features/Inventory/Category/router';
-import productRouter from '../features/Inventory/Product/router';
-import userRouter from '../features/User/router';
-import storageRouter from '../features/Storage/router';
+import productCategoryRouter from '../services/Inventory/Category/router';
+import productRouter from '../services/Inventory/Product/router';
+import userRouter from '../services/User/router';
+import storageRouter from '../services/Uploads/router';
 
 
 const router = express.Router();

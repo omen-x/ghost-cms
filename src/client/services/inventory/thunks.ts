@@ -1,8 +1,8 @@
-import { ProductCategoryPayload, ProductCategoryResponse } from '../../../server/features/Inventory/Category/types';
+import { ProductCategoryPayload, ProductCategoryResponse } from '../../../server/services/Inventory/Category/types';
 import { AppThunk } from '../../app/utils';
 import http from '../network';
 import { deleteCategory, storeProductsCategories, storeProducts } from './actions';
-import { ProductResponse, ProductMetaResponse } from '../../../server/features/Inventory/Product/types';
+import { ProductResponse, ProductMetaResponse } from '../../../server/services/Inventory/Product/types';
 
 
 export const fetchAndStoreCategories = (): AppThunk => (dispatch) =>
