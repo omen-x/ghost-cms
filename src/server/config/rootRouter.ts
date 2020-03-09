@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import productRouter from '../services/Products/router';
-import userRouter from '../services/User/router';
+import userRouter from '../services/Users/router';
 import uploadsRouter from '../services/Uploads/router';
 
 
