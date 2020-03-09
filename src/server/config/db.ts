@@ -58,7 +58,7 @@ export const storeMockProducts = (): void => {
       const uniqueProducts = products.filter((p, i) =>
         products.slice(i + 1).findIndex((el) => el.name === p.name) === -1);
 
-      Product.insertMany(uniqueProducts)
+      Product.create(...uniqueProducts)
         .then(() => {
           logger.debug('Mock products uploaded');
         })
